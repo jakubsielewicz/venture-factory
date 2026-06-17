@@ -1,0 +1,11 @@
+{
+  "gate": "G6",
+  "name": "operate",
+  "venture": "au-sme-compliance",
+  "type": "human",
+  "status": "pending",
+  "set_by": "template",
+  "set_at": null,
+  "evidence": {},
+  "notes": "HUMAN GATE \u00e2\u20ac\u201d deploy/publish approval. A human approves by editing this file's status to \"approved\" OUTSIDE the agent session. Deploy stays blocked until this is approved AND G5 is green and fresh."
+}

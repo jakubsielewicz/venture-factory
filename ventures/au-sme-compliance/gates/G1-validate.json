@@ -1,0 +1,19 @@
+{
+  "gate": "G1",
+  "name": "validate",
+  "venture": "au-sme-compliance",
+  "type": "agent",
+  "status": "green",
+  "set_by": "gate.py",
+  "set_at": "2026-06-17T23:14:44Z",
+  "evidence": {
+    "required_artifacts": [
+      "advisory/go-no-go-memo.md",
+      "advisory/risk-register.md",
+      "financials/unit-economics.md",
+      "advisory/verification.md"
+    ],
+    "missing": []
+  },
+  "notes": "Status derived from artifacts present on disk."
+}
