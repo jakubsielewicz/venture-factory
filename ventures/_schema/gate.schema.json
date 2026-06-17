@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://venture-factory/schemas/gate.schema.json",
+  "title": "Gate state record",
+  "description": "Authoritative per-gate status. Written by .claude/hooks/gate.py (agent gates) or by a human (human gates). The model is blocked from writing these by the PreToolUse guard.",
+  "type": "object",
+  "required": ["gate", "name", "venture", "type", "status", "set_by"],
+  "additionalProperties": false,
+  "properties": {
+    "gate": { "enum": ["G0", "G1", "G2", "G3", "G4", "G5", "G6"] },
+    "name": { "type": "string" },
+    "venture": { "type": "string" },
+    "type": { "enum": ["agent", "human"] },
+    "status": { "enum": ["pending", "in-progress", "green", "red", "blocked", "approved", "skipped"] },
+    "set_by": { "type": "string", "description": "e.g. gate.py, template, or a human's name" },
+    "set_at": { "type": ["string", "null"], "description": "ISO-8601 UTC, or null" },
+    "evidence": {
+      "type": "object",
+      "description": "For G5: { command, exit_code, source_fingerprint, output_tail }. For artifact gates: { required_artifacts, missing }.",
+      "additionalProperties": true
+    },
+    "notes": { "type": "string" }
+  }
+}

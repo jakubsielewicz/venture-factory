@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Secrets — never commit (the guard also blocks reading these)
+.env
+.env.*
+*.pem
+**/secrets/
+
+# OS
+.DS_Store
+Thumbs.db

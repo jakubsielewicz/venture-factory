@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://venture-factory/schemas/manifest.schema.json",
+  "title": "Venture manifest",
+  "description": "Machine-checkable state for one venture. The venture-orchestrator is the sole writer.",
+  "type": "object",
+  "required": ["slug", "title", "current_gate", "status", "owner_writer", "budget", "gates"],
+  "additionalProperties": false,
+  "properties": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "title": { "type": "string" },
+    "one_liner": { "type": "string", "description": "Who it's for and what it does, in one sentence." },
+    "created": { "type": "string", "description": "YYYY-MM-DD" },
+    "updated": { "type": "string", "description": "YYYY-MM-DD" },
+    "current_gate": { "enum": ["G0", "G1", "G2", "G3", "G4", "G5", "G6", "done", "killed"] },
+    "status": { "enum": ["in-progress", "blocked", "awaiting-human", "killed", "done"] },
+    "owner_writer": { "const": "venture-orchestrator" },
+    "budget": {
+      "type": "object",
+      "required": ["currency", "token_budget_total", "tokens_spent", "api_spend_cap_usd", "api_spend_usd"],
+      "additionalProperties": false,
+      "properties": {
+        "currency": { "type": "string" },
+        "token_budget_total": { "type": ["integer", "null"], "description": "null = no token cap" },
+        "tokens_spent": { "type": "integer", "minimum": 0 },
+        "api_spend_cap_usd": { "type": ["number", "null"], "description": "null = no $ cap" },
+        "api_spend_usd": { "type": "number", "minimum": 0 },
+        "per_gate_token_budget": { "type": "object", "additionalProperties": { "type": "integer" } }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "description": "Per-gate spec the orchestrator maintains. Authoritative status also lives in gates/<Gn>-<name>.json (hook-written).",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["name", "type", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "enum": ["agent", "human"] },
+          "owner": { "type": "string" },
+          "status": { "enum": ["pending", "in-progress", "green", "red", "blocked", "approved", "skipped"] },
+          "required_artifacts": { "type": "array", "items": { "type": "string" } },
+          "test_command": { "type": "string" }
+        }
+      }
+    }
+  }
+}

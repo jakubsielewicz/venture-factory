@@ -1,0 +1,11 @@
+{
+  "gate": "G0",
+  "name": "scout",
+  "venture": "<venture-slug>",
+  "type": "agent",
+  "status": "pending",
+  "set_by": "template",
+  "set_at": null,
+  "evidence": {},
+  "notes": "Set green by `python .claude/hooks/gate.py check <slug> G0` once required artifacts exist. The model must not edit this file directly."
+}

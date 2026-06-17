@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet"
+  },
+  "permissions": {
+    "defaultMode": "default",
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Skill",
+      "Agent",
+      "TodoWrite",
+      "WebSearch",
+      "WebFetch",
+      "Write",
+      "Edit",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git switch:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(pytest:*)",
+      "Bash(npm test:*)",
+      "Bash(npm run:*)",
+      "Bash(npm ci)",
+      "Bash(npm install:*)",
+      "Bash(node:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)"
+    ],
+    "deny": [
+      "Write(ventures/**/gates/**)",
+      "Edit(ventures/**/gates/**)",
+      "Read(.env)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/secrets/**)",
+      "Read(**/*.pem)",
+      "Bash(rm -rf /:*)",
+      "Bash(curl:*|sh)",
+      "Bash(curl:*|bash)",
+      "Bash(git push --force:*)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(terraform:*)",
+      "Bash(pulumi:*)",
+      "Bash(kubectl:*)",
+      "Bash(helm:*)",
+      "Bash(aws:*)",
+      "Bash(gcloud:*)",
+      "Bash(az:*)",
+      "Bash(vercel:*)",
+      "Bash(netlify:*)",
+      "Bash(fly:*)",
+      "Bash(flyctl:*)",
+      "Bash(wrangler:*)",
+      "Bash(serverless:*)",
+      "Bash(docker push:*)",
+      "Bash(eb deploy:*)",
+      "Bash(npm publish:*)",
+      "Bash(twine:*)",
+      "Bash(stripe:*)",
+      "Bash(gh repo create:*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "python", "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/guard.py"] }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          { "type": "command", "command": "python", "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/guard.py"] }
+        ]
+      }
+    ]
+  }
+}
