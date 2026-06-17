@@ -70,6 +70,17 @@ HARD_DENY = [(re.compile(p, re.I), why) for p, why in [
 GATES_RE = re.compile(r"/ventures/[^/]+/gates/")
 
 
+def _scannable(cmd: str) -> str:
+    """Strip comments and quoted spans so a deploy/spend keyword sitting inside
+    an echoed string or a '#' comment doesn't trip classification. Real,
+    unquoted commands are unaffected (e.g. `docker push x` still matches, but
+    `echo "docker push x"` and `# docker push x` no longer do)."""
+    no_comments = re.sub(r"#[^\n]*", " ", cmd)
+    no_dquotes = re.sub(r'"(?:[^"\\]|\\.)*"', " ", no_comments)
+    no_squotes = re.sub(r"'(?:[^'\\]|\\.)*'", " ", no_dquotes)
+    return no_squotes
+
+
 def deny(reason: str):
     print(json.dumps({"hookSpecificOutput": {
         "hookEventName": "PreToolUse",
@@ -111,11 +122,13 @@ def main():
         allow()
 
     cmd = ti.get("command", "") or ""
-    low = cmd.lower()
+    scan = _scannable(cmd)
+    low = scan.lower()
 
-    # 2. Hard denies.
+    # 2. Hard denies. Evaluated on the de-quoted command so a keyword inside an
+    #    echo/comment doesn't trigger (e.g. `echo "docker push ..."`).
     for pat, why in HARD_DENY:
-        if pat.search(cmd):
+        if pat.search(scan):
             deny(f"Blocked by the venture-factory guard ({why}). If this is "
                  f"genuinely required, a human must run it outside the agent session.")
 
