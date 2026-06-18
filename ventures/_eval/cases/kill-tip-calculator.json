@@ -1,0 +1,10 @@
+{
+  "id": "kill-tip-calculator",
+  "idea": "A free, ad-supported tip-calculator mobile app for consumers — splits a restaurant bill and suggests a tip percentage.",
+  "expect": {
+    "verdict": "KILL",
+    "score_max": 45,
+    "must_flag": ["willingness-to-pay"]
+  },
+  "note": "Clear KILL: zero willingness-to-pay, saturated, no moat, platform-dependent."
+}

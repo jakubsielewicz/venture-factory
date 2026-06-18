@@ -31,7 +31,7 @@ Each venture is an isolated working dir. Start a new one by copying `ventures/_t
 
 ## Cost discipline (the factory has its own unit economics)
 
-- Every venture carries a token + API-spend budget in `manifest.json`. Keep `tokens_spent` / `api_spend_usd` updated; halt and escalate if a gate blows its budget. The guard hard-stops deploy/spend once a cap is hit.
+- Every venture carries a token + API-spend budget in `manifest.json`. Spend is **auto-tracked**: a `SubagentStop` hook runs `.claude/hooks/spend.py from-hook` to add each subagent's tokens to the active venture (use `spend.py add <slug> --tokens N` / `--usd X` for manual or API spend). The guard hard-stops deploy/spend once a cap is hit; halt and escalate if a gate blows its budget.
 - Model tiering: Opus where judgement lives (advisor, analyst, architect); Sonnet for build/test/ops and the orchestrator; Haiku for wide research sweeps. The default subagent model is set via `CLAUDE_CODE_SUBAGENT_MODEL` in `.claude/settings.json`.
 - Prefer one well-scoped subagent over five chatty ones (subagent-heavy runs cost ~7× a single thread).
 

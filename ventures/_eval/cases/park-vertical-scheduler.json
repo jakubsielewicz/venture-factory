@@ -1,0 +1,11 @@
+{
+  "id": "park-vertical-scheduler",
+  "idea": "An online booking and scheduling tool aimed at mobile dog groomers — real demand in an underserved niche, but competing against many generic scheduling tools (Calendly, Square Appointments) with thin differentiation.",
+  "expect": {
+    "verdict": "PARK",
+    "score_min": 40,
+    "score_max": 69,
+    "must_flag": ["defensib"]
+  },
+  "note": "Borderline: decent demand but crowded market / weak moat; verdict band is intentionally wide."
+}

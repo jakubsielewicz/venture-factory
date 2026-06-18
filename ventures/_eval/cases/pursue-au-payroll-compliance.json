@@ -1,0 +1,11 @@
+{
+  "id": "pursue-au-payroll-compliance",
+  "idea": "A self-serve SaaS that ingests an Australian SME's payroll CSV, maps each employee to the correct modern award and classification, checks pay against current Fair Work rates, and outputs an audit-ready report. Driven by the Jan-2025 criminal wage-theft law.",
+  "expect": {
+    "verdict": "PURSUE",
+    "score_min": 60,
+    "score_max": 90,
+    "must_flag": ["regulat"]
+  },
+  "note": "Clear PURSUE: legislative demand catalyst, willingness-to-pay, low-ops; should still flag regulatory drag."
+}
