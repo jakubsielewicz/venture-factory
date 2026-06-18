@@ -8,6 +8,12 @@ __pycache__/
 *.pem
 **/secrets/
 
+# Build output
+dist/
+
+# Automation logs
+automation/*.log
+
 # OS
 .DS_Store
 Thumbs.db

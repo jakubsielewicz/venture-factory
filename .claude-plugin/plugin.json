@@ -1,0 +1,17 @@
+{
+  "name": "venture-factory",
+  "version": "0.3.0",
+  "description": "A gated crew of self-improving agents that take a software product from opportunity to operating revenue (G0-G6), with deterministic file-anchored guardrails (spend/deploy hooks, human gates).",
+  "author": {
+    "name": "jakub sielewicz",
+    "email": "jakub.sielewicz@outlook.com.au"
+  },
+  "keywords": [
+    "agents",
+    "skills",
+    "venture",
+    "passive-income",
+    "gated-pipeline",
+    "guardrails"
+  ]
+}

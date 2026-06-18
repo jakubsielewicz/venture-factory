@@ -53,4 +53,11 @@ Each venture is an isolated working dir. Start a new one by copying `ventures/_t
 
 - **Interactive:** start `claude` and give the orchestrator a goal ("run the venture pipeline for …; stop at G2 and G6").
 - **Force a specialist:** `@agent-<name>` or `claude --agent <name>`.
-- **Headless / scheduled:** the Agent SDK with `setting_sources=["user","project"]` (see plan §6).
+- **Headless / scheduled:** the Agent SDK with `setting_sources=["user","project"]` (see plan §6). `automation/nightly_scout.py` runs an unattended G0 sweep on cron (guard hooks still apply).
+- **Slash commands:** `/scout <theme>` · `/validate <slug>` · `/design <slug>` · `/build <slug>` · `/ship <slug>` (gated) · `/retro <slug>` — thin wrappers in `.claude/commands/` that drive the orchestrator at the right gate.
+
+## Self-improvement & repeatability
+
+- **The learning loop:** run `/retro <slug>` (the `skill-curator` skill) after every venture. It appends dated, evidence-tagged heuristics to each skill's `knowledge/ledger.md` and reusable artifacts to `examples/` (append-only). It does **not** silently rewrite a `SKILL.md` — proposed procedure changes go to `ventures/<slug>/retro/curator-proposals.md` for human review, and only earn a `SKILL.md` edit after proving out across ≥3 ventures. Ledgers over ~20 entries get compacted into `references/`.
+- **Authoring more crew:** `/new-skill` and `/new-agent` (the meta-skills) scaffold new skills/agents to these conventions — least-privilege tools, lean progressive-disclosure bodies, fail-graceful injection scripts, and per-type `Agent(x), Agent(y)` spawn restrictions (never comma-packed).
+- **Packaging:** `python automation/package_plugin.py` assembles the whole crew into `dist/venture-factory/` as an installable plugin (skills namespaced `venture-factory:<skill>`).
