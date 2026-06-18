@@ -4,4 +4,8 @@
 > Entry format: `YYYY-MM-DD - <heuristic/anti-pattern> - evidence: <slug> - confidence: low|med|high (n=K)`
 > The SKILL.md body loads only the most recent / highest-confidence entries; compact older ones into references/ periodically.
 
-_(empty - no validated heuristics yet)_
+2026-06-18 - ANTI-PATTERN: Calling a statutory penalty figure MISMATCH without first confirming both the penalty-unit COUNT and the current penalty-unit RATE from primary. In au-sme-compliance the verifier used the wrong unit count combined with an outdated Commonwealth penalty-unit rate ($313 instead of $330, effective Nov 2024), producing a false mismatch against a correct figure. Always state the arithmetic explicitly: N units × $X/unit = $Y, and confirm N and $X separately. - evidence: au-sme-compliance - confidence: low (n=1)
+
+2026-06-18 - AU .gov.au sources (DEWR, FWC, ABS, AustLII) are frequently unreachable (timeouts, 403 errors) during automated fetch. Treat a .gov.au fetch failure as a signal to escalate to named law-firm / professional secondary sources rather than marking the claim UNVERIFIABLE. Flag the primary as "unconfirmed via direct fetch" and note the secondary consensus. Four independent named secondaries with consistent figures is adequate for G2 readiness on a statutory claim. - evidence: au-sme-compliance - confidence: low (n=1)
+
+2026-06-18 - Cross-check internal arithmetic consistency as a proxy for source correctness. When two secondary sources cite slightly different dollar figures for the same penalty (e.g. $7.825M vs $8.25M), check whether they are using different penalty-unit RATES ($313 vs $330) applied to the same unit COUNT (25,000). If the arithmetic is consistent across sources at their respective rate dates, the unit count is verified and the discrepancy is explained by a rate change, not a factual disagreement. - evidence: au-sme-compliance - confidence: low (n=1)

@@ -4,4 +4,4 @@
 > Entry format: `YYYY-MM-DD - <heuristic/anti-pattern> - evidence: <slug> - confidence: low|med|high (n=K)`
 > The SKILL.md body loads only the most recent / highest-confidence entries; compact older ones into references/ periodically.
 
-_(empty - no validated heuristics yet)_
+2026-06-18 - Compliance constraints encoded as named NFRs (NFR-L1/L2) with CI-enforced string scans survived into the security checklist unchanged. Encoding a legal disclaimer constraint as both a testable NFR AND a CI check (automated string scan for prohibited phrases) ensured neither the builder nor the QA engineer could accidentally skip it. - evidence: au-sme-compliance - confidence: low (n=1)
