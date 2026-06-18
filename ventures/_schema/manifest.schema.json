@@ -10,10 +10,11 @@
     "slug": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
     "title": { "type": "string" },
     "one_liner": { "type": "string", "description": "Who it's for and what it does, in one sentence." },
+    "product_repo": { "type": "string", "description": "URL of the graduated product's own repo (set when the code moves out)." },
     "created": { "type": "string", "description": "YYYY-MM-DD" },
     "updated": { "type": "string", "description": "YYYY-MM-DD" },
     "current_gate": { "enum": ["G0", "G1", "G2", "G3", "G4", "G5", "G6", "done", "killed"] },
-    "status": { "enum": ["in-progress", "blocked", "awaiting-human", "killed", "done"] },
+    "status": { "enum": ["in-progress", "blocked", "awaiting-human", "graduated", "operating", "killed", "done"] },
     "owner_writer": { "const": "venture-orchestrator" },
     "budget": {
       "type": "object",

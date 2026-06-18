@@ -6,8 +6,9 @@
 A self-serve Modern Award Pay Compliance Checker for Australian SMEs: upload a payroll CSV, map staff to the correct modern award + classification, check pay against current Fair Work rates, get an audit-ready PDF with per-employee confidence scores.
 
 ## Current state
-- **Gate:** G5 test COMPLETE (green, 171/171). G6 deploy PREPARED - AWAITING HUMAN (deploy hard-blocked until approved).
-- **Status:** in-progress
+- **Gate:** GRADUATED - product extracted to its own repo; G5 green, G6 deploy still gated there (7 launch blockers).
+- **Status:** graduated
+- **Product repo:** https://github.com/jakubsielewicz/au-sme-compliance
 - **Last updated:** 2026-06-18
 
 ## Thesis

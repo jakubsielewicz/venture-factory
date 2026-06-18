@@ -2,10 +2,11 @@
   "slug": "au-sme-compliance",
   "title": "Compliance automation for AU SMEs",
   "one_liner": "Software that automates a recurring compliance obligation for small/medium Australian businesses.",
+  "product_repo": "https://github.com/jakubsielewicz/au-sme-compliance",
   "created": "2026-06-18",
   "updated": "2026-06-18",
   "current_gate": "G6",
-  "status": "awaiting-human",
+  "status": "graduated",
   "owner_writer": "venture-orchestrator",
   "budget": {
     "currency": "USD",
