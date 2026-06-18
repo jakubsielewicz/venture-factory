@@ -7,7 +7,7 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "test": "node --experimental-strip-types --test tests/engine/csvParser.test.ts tests/engine/classifier.test.ts tests/engine/reportBuilder.test.ts tests/engine/integration.test.ts tests/api/handlers.test.ts",
+    "test": "node --experimental-strip-types --test tests/engine/csvParser.test.ts tests/engine/classifier.test.ts tests/engine/reportBuilder.test.ts tests/engine/integration.test.ts tests/api/handlers.test.ts tests/gaps.test.ts",
     "test:engine": "node --experimental-strip-types --test tests/engine/csvParser.test.ts tests/engine/classifier.test.ts tests/engine/reportBuilder.test.ts tests/engine/integration.test.ts",
     "test:api": "node --experimental-strip-types --test tests/api/handlers.test.ts",
     "lint": "tsc --noEmit",

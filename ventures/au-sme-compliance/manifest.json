@@ -4,8 +4,8 @@
   "one_liner": "Software that automates a recurring compliance obligation for small/medium Australian businesses.",
   "created": "2026-06-18",
   "updated": "2026-06-18",
-  "current_gate": "G5",
-  "status": "in-progress",
+  "current_gate": "G6",
+  "status": "awaiting-human",
   "owner_writer": "venture-orchestrator",
   "budget": {
     "currency": "USD",
@@ -75,7 +75,7 @@
       "name": "test",
       "type": "agent",
       "owner": "qa-engineer",
-      "status": "pending",
+      "status": "green",
       "required_artifacts": [
         "product/tests"
       ],

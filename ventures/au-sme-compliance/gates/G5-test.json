@@ -3,9 +3,14 @@
   "name": "test",
   "venture": "au-sme-compliance",
   "type": "agent",
-  "status": "pending",
-  "set_by": "template",
-  "set_at": null,
-  "evidence": {},
-  "notes": "Set green/red ONLY by `python .claude/hooks/gate.py test <slug>`, from the real test exit code. Deploy is blocked unless this is green AND fresh (source fingerprint matches the current build)."
+  "status": "green",
+  "set_by": "gate.py",
+  "set_at": "2026-06-18T04:07:22Z",
+  "evidence": {
+    "command": "npm test",
+    "exit_code": 0,
+    "source_fingerprint": "1b3a405551e70df9",
+    "output_tail": "4325ms)\n\u00e2\u2013\u00b6 NFR-L1: Disclaimer version and report fields\n  \u00e2\u0153\u201d DISCLAIMER_VERSION is a non-empty string (0.045ms)\n  \u00e2\u0153\u201d every generated report has a non-null disclaimerVersion (0.1901ms)\n  \u00e2\u0153\u201d every generated report includes rateTableEffectiveDate (0.0833ms)\n  \u00e2\u0153\u201d disclaimer text contains 'Results are as at' (temporal notice, US-07) (0.0758ms)\n\u00e2\u0153\u201d NFR-L1: Disclaimer version and report fields (0.45ms)\n\u00e2\u2013\u00b6 NFR-L2: Prohibited language not in fixture data\n  \u00e2\u0153\u201d no award name or classification description contains prohibited phrases (0.1613ms)\n\u00e2\u0153\u201d NFR-L2: Prohibited language not in fixture data (0.1857ms)\n\u00e2\u2013\u00b6 Perf smoke \u00e2\u20ac\u201d engine throughput (NFR-P3)\n  \u00e2\u0153\u201d processes 500 rows (Hospitality) in under 2 seconds (in-memory target) (3.3418ms)\n  \u00e2\u0153\u201d processes 500 mixed-award rows (Retail) in under 2 seconds (2.4994ms)\n  \u00e2\u0153\u201d processes 500 rows where all are LOW confidence in under 2 seconds (2.3446ms)\n\u00e2\u0153\u201d Perf smoke \u00e2\u20ac\u201d engine throughput (NFR-P3) (8.3181ms)\n\u00e2\u2013\u00b6 US-03: Trial and subscription tier validation\n  \u00e2\u0153\u201d CheckoutSchema rejects 'enterprise' as an invalid tier (1.2777ms)\n  \u00e2\u0153\u201d CheckoutSchema accepts 'starter' and 'pro' tiers (0.1977ms)\n  \u00e2\u0153\u201d CheckoutSchema accepts annual billing_period (0.1211ms)\n\u00e2\u0153\u201d US-03: Trial and subscription tier validation (1.6729ms)\n\u00e2\u2013\u00b6 US-02: Registration validation (minimum password length)\n  \u00e2\u0153\u201d RegisterSchema rejects password shorter than 12 characters (0.3918ms)\n  \u00e2\u0153\u201d RegisterSchema accepts a 12-character password (0.1921ms)\n  \u00e2\u0153\u201d PasswordResetConfirmSchema enforces 12-character minimum (0.1728ms)\n\u00e2\u0153\u201d US-02: Registration validation (minimum password length) (0.8186ms)\n\u00e2\u2013\u00b6 handleListAwards \u00e2\u20ac\u201d NFR-L7 audit fields\n  \u00e2\u0153\u201d every award response includes award_id, code, name, rate date, classification_count (0.1551ms)\n  \u00e2\u0153\u201d total_awards in meta equals active award count (0.0474ms)\n\u00e2\u0153\u201d handleListAwards \u00e2\u20ac\u201d NFR-L7 audit fields (0.2367ms)\n\u00e2\u201e\u00b9 tests 171\n\u00e2\u201e\u00b9 suites 43\n\u00e2\u201e\u00b9 pass 171\n\u00e2\u201e\u00b9 fail 0\n\u00e2\u201e\u00b9 cancelled 0\n\u00e2\u201e\u00b9 skipped 0\n\u00e2\u201e\u00b9 todo 0\n\u00e2\u201e\u00b9 duration_ms 267.671\n"
+  },
+  "notes": "Written from the real test exit code; not model-editable."
 }
