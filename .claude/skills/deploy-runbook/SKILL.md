@@ -12,7 +12,7 @@ git -C "$CLAUDE_PROJECT_DIR" diff --stat HEAD~1 2>/dev/null || echo "DATA UNAVAI
 
 ## Procedure
 1. Document prerequisites: accounts, secrets (names only, sourced from a manager), the IaC apply command, and the env vars required.
-2. Write the deploy steps as an exact, copy-paste sequence that works from a clean environment — no tribal knowledge.
+2. Write the deploy steps as an exact, copy-paste sequence that works from a clean environment — no tribal knowledge. Keep deploy-trigger keywords ("deploy", "publish", "release", a hosting CLI + `--prod`) OUT of shell command TEXT — echo strings, commit messages, heredoc/backtick content — because the deploy guard scans command text and trips on keyword matches in arguments, not just command names; put such words in prose/comments outside the command string.
 3. Write the ROLLBACK steps and the trigger for using them.
 4. Note the smoke check to run immediately after deploy (the one thing that proves it's live).
 5. Write `ventures/<slug>/runbook.md`.

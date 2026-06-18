@@ -12,7 +12,7 @@ python "$CLAUDE_PROJECT_DIR/.claude/skills/unit-economics/scripts/pull_benchmark
 
 ## Procedure
 1. Establish the revenue unit (per seat / per usage / flat) and the pricing hypothesis.
-2. Per-unit P&L: price − COGS (infra, payment fees, support) = contribution margin.
+2. Per-unit P&L: price − COGS (infra, payment fees, support) = contribution margin. Use the **target-market locale** payment-processor rate, not the US default (e.g. Stripe AU domestic 1.7% + A$0.30, not US 2.9% + $0.30); cite the rate + date, and confirm locale tax/GST and refund-cost assumptions.
 3. Compute CAC (by channel), LTV (ARPU × gross margin × expected lifetime from churn), LTV:CAC, and CAC payback (months).
 4. Break-even units and months given the build cost (from `financials/build-cost.md` if present, else state the assumption).
 5. Stress it: sensitivity on price ±20%, churn ±50%, CAC ±50% (call the `sensitivity-analysis` skill).

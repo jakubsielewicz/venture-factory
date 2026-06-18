@@ -1,7 +1,7 @@
 # Skill-Curator Proposals — au-sme-compliance Retro
 **Date:** 2026-06-18
 **Author:** skill-curator
-**Status:** AWAITING HUMAN REVIEW — do not apply to SKILL.md files until approved
+**Status:** APPROVED BY HUMAN & APPLIED 2026-06-18 — all 6 proposals integrated into their SKILL.md procedures (human approval overrides the n≥2/n≥3 auto-threshold).
 
 These are proposed procedure-level changes to SKILL.md files, each with rationale and the evidence count. Per the skill-curator safeguard, SKILL.md edits require n≥3 before applying directly; these are n=1 (au-sme-compliance only) and are staged here for human decision.
 

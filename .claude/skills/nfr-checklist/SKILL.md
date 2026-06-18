@@ -12,7 +12,7 @@ allowed-tools: Read, Write
    - Privacy/data (what PII is held, retention, the `advisory/` privacy duties)
    - Availability (uptime target, backup/restore)
    - Cost (the monthly ceiling from `financials/`)
-2. Turn each compliance + liability constraint from `advisory/` (e.g. "tool not adviser" posture, required disclaimers) into a concrete, checkable requirement.
+2. Turn each compliance + liability constraint from `advisory/` (e.g. "tool not adviser" posture, required disclaimers) into a concrete, checkable requirement. For every `advisory/risk-register` item rated **Exposure ≥ 12**, also create a named NFR (in a "Compliance & Liability Constraints" section) with a risk-register reference, a measurable target, and executable acceptance criteria, and mark it a **pre-launch gate blocker** in the runbook.
 3. Write `ventures/<slug>/product/design/nfr.md`. Every NFR must be testable by qa-engineer.
 
 Heuristics: `knowledge/ledger.md`.
