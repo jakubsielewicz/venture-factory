@@ -1,0 +1,26 @@
+{
+  "name": "au-sme-compliance",
+  "version": "0.1.0",
+  "description": "Modern Award Pay Compliance Checker — MVP",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "node --experimental-strip-types --test tests/engine/csvParser.test.ts tests/engine/classifier.test.ts tests/engine/reportBuilder.test.ts tests/engine/integration.test.ts tests/api/handlers.test.ts",
+    "test:engine": "node --experimental-strip-types --test tests/engine/csvParser.test.ts tests/engine/classifier.test.ts tests/engine/reportBuilder.test.ts tests/engine/integration.test.ts",
+    "test:api": "node --experimental-strip-types --test tests/api/handlers.test.ts",
+    "lint": "tsc --noEmit",
+    "dev": "node --experimental-strip-types src/server.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "pdfkit": "0.15.0",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "22.13.1",
+    "@types/pdfkit": "0.13.4",
+    "typescript": "5.7.3"
+  }
+}
