@@ -5,6 +5,7 @@ __pycache__/
 # Secrets — never commit (the guard also blocks reading these)
 .env
 .env.*
+!.env.example
 *.pem
 **/secrets/
 

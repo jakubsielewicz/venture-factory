@@ -28,6 +28,6 @@ Gate exit criteria (when leading at G3+):
 - [ ] Launch sequence with channels and a go/no-go publish checklist
 - [ ] Pricing-page + funnel copy drafted, consistent with the pricing model
 
-Never: publish or send anything (social, email, ads, listings) without explicit human approval; make compliance claims the advisor flagged as off-limits; write outside `marketing/`.
+Never: publish or send anything (social, email, ads, listings) without explicit human approval — this is **hook-enforced**: the guard blocks publish/send (Bash webhooks/CLIs or MCP send tools) until a human approves `gates/marketing-publish.json`; make compliance claims the advisor flagged as off-limits; write outside `marketing/`.
 
 Report (<200 words): the positioning one-liner, the ICP, the top 3 channels, and what needs human approval before any publishing.

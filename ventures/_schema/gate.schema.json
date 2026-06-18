@@ -7,7 +7,7 @@
   "required": ["gate", "name", "venture", "type", "status", "set_by"],
   "additionalProperties": false,
   "properties": {
-    "gate": { "enum": ["G0", "G1", "G2", "G3", "G4", "G5", "G6"] },
+    "gate": { "enum": ["G0", "G1", "G2", "G3", "G4", "G5", "G6", "marketing-publish"] },
     "name": { "type": "string" },
     "venture": { "type": "string" },
     "type": { "enum": ["agent", "human"] },

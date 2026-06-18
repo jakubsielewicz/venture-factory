@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 `G0 Scout → G1 Validate → `**`G2 Decide (HUMAN)`**` → G3 Design → G4 Build → G5 Test → `**`G6 Operate/Deploy (HUMAN)`**` → Retro (curator)`
 
 - **G2** and **G6** are hard human gates: money is spent at G2, something goes public at G6. The orchestrator STOPS and escalates — it never self-approves them.
-- Marketing publishing is also human-gated.
+- Marketing publishing is also human-gated — the guard blocks publish/send (social/email/ads via Bash or an MCP send tool) until a human approves `gates/marketing-publish.json`.
 
 ## Per-venture state (`ventures/<slug>/`)
 
@@ -40,13 +40,14 @@ Each venture is an isolated working dir. Start a new one by copying `ventures/_t
 - **Least privilege:** see `.claude/settings.json`. Research/advisory agents are read-only; the builder writes only in its sandbox; deploy/spend tools always prompt a human *and* are gated by hooks.
 - **Verify research before G2:** load-bearing numbers (TAM, pricing, competitor data) from web research must be checked against their cited source; record the check in `advisory/verification.md`. LLMs fabricate plausible figures — the go/no-go gate is where that costs money.
 - **Decision-support, not licensed advice:** `domain-advisor` and `financial-analyst` outputs are decision-support; the human owns regulated (legal/financial/health) decisions.
-- **Secrets are scoped per gate:** the builder gets no prod credentials; deploy/operate get only what their gate needs, from env / a secret manager — never committed, never handed to a read-only research agent or an injection script.
+- **Secrets are scoped per gate:** the builder gets no prod credentials; deploy/operate get only what their gate needs, from env / a secret manager — never committed, never handed to a read-only research agent or an injection script. The guard hard-denies reading/exfiltrating secret files (`.env`/`.pem`/`.key`) via the shell. Full policy: `SECRETS.md`.
 - **"Passive" is a scope decision:** if a venture needs ongoing support/billing/security ops, say so — call it *low-touch* and scope accordingly.
 
 ## Conventions
 
 - **Cross-platform:** this repo is developed on Windows. Write helper/injection scripts in `python` (not bash); set a skill's `shell` frontmatter where a bash-ism is unavoidable. Hooks use the exec form so they run identically on Windows and Unix.
 - **Active venture:** set `VF_ACTIVE_VENTURE=<slug>` (or work from inside `ventures/<slug>/`) so the guard can resolve which venture's gates and budget to enforce.
+- **Workspace portability:** the crew can run in a graduated product repo, not just the factory. There, the product repo's `CLAUDE.md` remaps the product workspace to the repo root (starter kit in `automation/product-repo-template/`); install the factory as a plugin for the agents/skills, and copy `.claude/hooks/` so releases stay gated (green tests + human approval).
 - **Definition of done (per gate):** required artifacts exist; the gate file is green/approved via the proper mechanism; the budget is respected; the report names decisions, artifacts, and open risks.
 
 ## Running the crew
