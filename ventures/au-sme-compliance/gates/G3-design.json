@@ -3,9 +3,17 @@
   "name": "design",
   "venture": "au-sme-compliance",
   "type": "agent",
-  "status": "pending",
-  "set_by": "template",
-  "set_at": null,
-  "evidence": {},
-  "notes": "Set green by `python .claude/hooks/gate.py check <slug> G3` once required artifacts exist. The model must not edit this file directly."
+  "status": "green",
+  "set_by": "gate.py",
+  "set_at": "2026-06-18T02:19:38Z",
+  "evidence": {
+    "required_artifacts": [
+      "product/design/prd.md",
+      "product/design/c4.md",
+      "product/design/api-contract.md",
+      "product/design/nfr.md"
+    ],
+    "missing": []
+  },
+  "notes": "Status derived from artifacts present on disk."
 }

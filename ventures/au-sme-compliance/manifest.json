@@ -4,8 +4,8 @@
   "one_liner": "Software that automates a recurring compliance obligation for small/medium Australian businesses.",
   "created": "2026-06-18",
   "updated": "2026-06-18",
-  "current_gate": "G2",
-  "status": "awaiting-human",
+  "current_gate": "G5",
+  "status": "in-progress",
   "owner_writer": "venture-orchestrator",
   "budget": {
     "currency": "USD",
@@ -48,13 +48,13 @@
       "name": "decide",
       "type": "human",
       "owner": "human",
-      "status": "pending"
+      "status": "approved"
     },
     "G3": {
       "name": "design",
       "type": "agent",
       "owner": "product-architect",
-      "status": "pending",
+      "status": "green",
       "required_artifacts": [
         "product/design/prd.md",
         "product/design/c4.md",
@@ -66,7 +66,7 @@
       "name": "build",
       "type": "agent",
       "owner": "builder",
-      "status": "pending",
+      "status": "green",
       "required_artifacts": [
         "product/src"
       ]
@@ -79,7 +79,7 @@
       "required_artifacts": [
         "product/tests"
       ],
-      "test_command": "pytest -q"
+      "test_command": "npm test"
     },
     "G6": {
       "name": "operate",
