@@ -1,0 +1,11 @@
+{
+  "gate": "G2",
+  "name": "decide",
+  "venture": "aml-tranche2",
+  "type": "human",
+  "status": "pending",
+  "set_by": "template",
+  "set_at": null,
+  "evidence": {},
+  "notes": "HUMAN GATE \u00e2\u20ac\u201d go/no-go + spend authorisation. A human approves by editing this file's status to \"approved\" OUTSIDE the agent session. The model is blocked from writing here. Resource-creation/spend stays blocked until this is approved."
+}

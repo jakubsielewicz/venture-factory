@@ -1,0 +1,16 @@
+{
+  "gate": "G0",
+  "name": "scout",
+  "venture": "payday-super",
+  "type": "agent",
+  "status": "green",
+  "set_by": "gate.py",
+  "set_at": "2026-06-18T15:08:12Z",
+  "evidence": {
+    "required_artifacts": [
+      "research/opportunity-score.md"
+    ],
+    "missing": []
+  },
+  "notes": "Status derived from artifacts present on disk."
+}
