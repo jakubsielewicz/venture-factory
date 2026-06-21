@@ -7,7 +7,7 @@ allowed-tools: Read, Write, WebSearch, WebFetch
 
 ## Procedure
 1. Prefer **bottom-up**: (target buyers/accounts) × (realistic price) × (adoption rate) = SOM; widen to SAM and TAM. Cross-check against any top-down figure and explain the gap.
-2. State each input with a dated source. Where you must estimate, give a range (low / base / high), never a bare point.
+2. State each input with a dated source. Where you must estimate, give a range (low / base / high), never a bare point. **The entity/operator COUNT (the denominator) must come from a named primary source (ABS, AIHW, the sector regulator's annual report).** If a sub-segment is derived by a % split of a broader total, the split % must itself be sourced; if it isn't, label the range as **RISK** (not a base case), report only the lower bound as the operative SOM, and flag it as a G2 blocker.
 3. Convert to an annual revenue ceiling and a realistic 12–24 month obtainable slice for a solo/small team.
 4. Verdict: is the obtainable slice worth the build? Name the one input the size is most sensitive to.
 5. Feed the result to `opportunity-scoring`; write `research/market-sizing.md` only if asked.

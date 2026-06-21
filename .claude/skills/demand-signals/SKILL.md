@@ -13,6 +13,6 @@ python "$CLAUDE_PROJECT_DIR/.claude/skills/demand-signals/scripts/pull_signals.p
 ## Procedure
 1. Read the snapshot above. If it says `DATA UNAVAILABLE`, fall back to 2–3 targeted web searches (search-volume proxies, forum/Reddit threads, marketplace listings) and note that the snapshot was unavailable.
 2. Summarise: direction of demand (growing / flat / declining), 3 concrete demand signals each with a dated source, and any seasonality.
-3. Hand the summary to `opportunity-scoring`; do not write a separate file unless asked.
+3. Hand the summary to `opportunity-scoring` as a SEPARATE output from the lane verdict (so the orchestrator can PARK on lane grounds without re-running demand). **Demand ≠ opportunity:** strong regulatory demand is necessary but not sufficient — before any PURSUE on demand grounds, confirm a lane check (top-2 competitors probed; see `competitor-teardown` / `competitor-price-probe`), a crowding check (>3 active entrants ⇒ cap open-lane), and the regulatory-drag score (discover disqualifying drag cheaply, first). Do not write a separate file unless asked.
 
 The script reads the active venture's theme from `manifest.json` / `brief.md` (never from an interpolated argument — avoids shell injection) and needs `DEMAND_SIGNALS_API_KEY` for live data. Source-reliability notes: `knowledge/ledger.md`.

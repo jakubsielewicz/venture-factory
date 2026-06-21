@@ -3,44 +3,39 @@
 > Living source of truth. The venture-orchestrator is the sole writer.
 
 ## One-liner
-A self-serve Safety Management System (SMS) SaaS for small Australian heavy-vehicle operators (1-20 trucks) to meet the HVNL 2026 SMS obligation: form-builder + evidence storage (incidents, pre-starts, training, fatigue) + audit-ready trail + alerts.
+A self-serve Safety Management System (SMS) SaaS for small Australian heavy-vehicle operators (1-20 trucks) to meet the HVNL 2026 SMS obligation: form-builder + evidence storage (incidents, pre-starts, fatigue, training) + audit-ready trail + alerts.
 
 ## Current state
-- **Gate:** G0 sweep COMPLETE (green). Verdict PURSUE 74/100 (top score on the board). Next: G1 validate (`/validate asleep-incumbent`).
-- **Status:** in-progress
+- **Gate:** G1 validate COMPLETE (green). At the **G2 HUMAN gate** - go/no-go + spend authorisation. AWAITING HUMAN.
+- **Status:** awaiting-human
 - **Last updated:** 2026-06-18
 
-## How we got here
-G0 applied the learned **open-lane meta-filter** (strong demand + an asleep/enterprise-only/absent incumbent). Of 7 candidates swept, HVNL SMS was the only one with a real forcing function AND a genuinely open lane (see research/shortlist.md). The filter directly produced the result.
-
 ## Thesis
-The amended Heavy Vehicle National Law commences **1 Aug 2026 with no grace period**: every accredited operator (NSW/VIC/QLD/SA/TAS/ACT) must hold a documented, AUDITABLE, *operating* SMS from day one; CoR penalties up to $10,000/breach. Incumbents (Netcorp, MTData, Teletrac Navman, Kynection, Logmaster, ATCC) are telematics-hardware-tied and enterprise/quote-only; NHVR's free PDF templates satisfy "documented" but not "operating". No affordable self-serve SMS exists for sub-20-truck operators - the open lane.
+HVNL amendments commence 1 Aug 2026; every accredited operator must hold an auditable, OPERATING SMS; CoR penalties up to ~$10k/breach. Incumbents are telematics-tied + enterprise/quote-only; NHVR free PDFs satisfy "documented" but not "operating". Open lane for sub-20-truck operators (found via the asleep-incumbent meta-filter).
 
-## G0 verdict
-**PURSUE - 74/100.** Hard deadline + penalties, an open lane for small operators, a technically tractable build (fixed 5-category SMS Standard; form-builder + storage + alerts, no API deps, ~6-10 weeks solo), accruing switching cost, and LOW regulatory drag (no TGA/AFSL/advice boundary). Best opportunity found so far (ties au-sme-compliance on score, lower build/integration risk than [venture-removed]).
+## G2 decision package (recommendation: GO-IF)
+- **Analyst (G1): FIXABLE.** LTV:CAC 7.9x, payback 5.1mo, GM ~95%, break-even 48 customers. ARR ceiling A$3.6M (3,200 ops) - A$8.1M (7,200 ops); realistic 10% = A$359K-808K. Decisive lever: WTP vs free NHVR PDFs (free-default pessimistic case = A$32-121K ARR, sub-scale).
+- **Advisor (G1): GO-IF.** Moat is "defensible-for-now, not durable" - ATCC/Kynection could ship a self-serve tier in <1 quarter; functional moat to 1 Aug 2026 is speed-to-deadline + accruing evidence-trail switching cost. Regulatory path clear (no software-vendor registration found; Privacy Act standard data-processor duties).
+- **Verification (pre-G2): CONDITIONAL - 7/22 verified, 3 blockers** (the GO-IF conditions): see below.
 
-## Shortlist (ranked; see research/shortlist.md)
-1. HVNL 2026 SMS for small operators - 74 - LANE OPEN (conditional) - SELECTED
-2. AASB S2 mid-market climate disclosure - 55-62 - PARK (lane crowded: Carbonly/NetNada/Avarni/Sumday/Trace)
-3. Psychosocial/People-at-Work SME tool - 52-58 - PARK (Clearhead live at $1/user/mo)
-4. Labour-hire multi-state licence dashboard - 50-56 - PARK (narrow; bundled by recruitment platforms)
-5. NSW self-managed strata compliance - 48-55 - PARK (UnitBuddy; tiny market)
-6. Micro-RTO compliance - 48-54 - PARK (RTOSafe/Complynce/aXcelerate)
-7. FSANZ 3.2.2A food-safety evidence - 42-48 - KILL (mandate 2yrs old; SafetyCulture + free templates)
+### Two binary GO-IF gates (cheap, must clear BEFORE G2 spend)
+1. **Lane test:** a direct ATCC/Kynection sales call for a 2-truck scenario confirms NO self-serve SMS at <=A$130/mo. (If a cheap tier exists -> PARK.)
+2. **WTP test:** >=5 of 10-15 owner-operator interviews confirm purchase intent at A$79/mo.
 
-## Load-bearing evidence (verify at G1)
-- Forcing function: HVNL amendments commence 1 Aug 2026, no grace period; auditable SMS required; CoR penalties to $10k/breach; NHVR running free small-operator sessions (Netcorp HVNL guide 2026; NHVR SMS page 2026; Kynection 2026). [verify]
-- Open lane: incumbents enterprise/quote-only + telematics-tied; ATCC demo-only no pricing; SafetyCulture generic ($24/seat); NHVR free PDFs fail the "operating" test (ATCC/Logmaster/Netcorp pages fetched Jun 2026; SelectHub). [verify]
-- Tractable + defensible: SMS Standard 2026 is a fixed 5-category framework; ~6-10 weeks solo; evidence-trail switching cost; no regulated-advice boundary (NHVR SMS framework 2026). 
+### Verification blockers (resolve with the above)
+- "No grace period" qualifier - cited secondaries 404'd; confirm from HVNL Bill / NHVR FAQ. (Commencement date 1 Aug 2026 IS verified.)
+- Sub-20-truck operator count (3,200-7,200) - the 40-60% split is unsourced; call NHVR (13 6487) or use ABS. All ARR hangs on it.
+- ATCC lane (= GO-IF gate 1).
 
-## Open risks / G1 unknowns
-1. **Lane confirmation (make-or-break):** does ATCC (or an undiscovered tool) already serve 1-5 truck operators at an accessible price? Call ATCC for pricing + scan ATA/trucking forums. If filled, downgrade to PARK.
-2. WTP at $79-99/mo vs defaulting to NHVR free PDFs - 10-15 owner-operator interviews (ATA, Owner Drivers Australia, FB groups); need >=5 purchase-intent.
-3. Target count: est. 3,200-7,200 sub-20-truck accredited operators (8-12k total x 40-60%) - UNVERIFIED; check NHVR Annual Report 2024-25 + ABS.
+### Spend G2 would authorise
+~A$58,720 (build + marketing burst + legal Privacy Policy review + 12mo opex), IF both GO-IF gates pass.
 
-## Regulated-domain flag (for domain-advisor)
-Minimal vs prior ideas: driver records = personal info (Privacy Act 1988, standard data-processor obligations; AU hosting preferred). No software-vendor registration identified for the sector (confirm at G1). Decision-support only.
+## Decisive risks
+1. Lane-closing competitive entry (incumbent ships a cheap self-serve tier) - thin moat.
+2. WTP vs free PDFs - positioning task (documented vs operating SMS).
+3. **44-day window:** to catch the 1 Aug 2026 urgency, build must start ~23 Jun 2026 with a locked MVP - so the GO-IF checks must happen now; missing the date defers break-even 12-18 months.
 
 ## Artifacts by gate
 - G0 research/ - opportunity-score.md, shortlist.md (green)
-- G1 - NEXT (domain-advisor + financial-analyst + research-verification)
+- G1 advisory/ - risk-register.md, go-no-go-memo.md, verification.md ; financials/ - unit-economics.md (green)
+- G2 - AWAITING HUMAN go/no-go + spend authorisation

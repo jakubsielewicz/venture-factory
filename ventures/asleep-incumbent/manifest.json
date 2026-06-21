@@ -4,8 +4,8 @@
   "one_liner": "A self-serve Safety Management System (SMS) SaaS for small AU heavy-vehicle operators (1-20 trucks) to meet the HVNL 2026 SMS obligation - the open-lane idea from the sweep.",
   "created": "2026-06-18",
   "updated": "2026-06-18",
-  "current_gate": "G0",
-  "status": "in-progress",
+  "current_gate": "G2",
+  "status": "awaiting-human",
   "owner_writer": "venture-orchestrator",
   "budget": {
     "currency": "USD",
@@ -36,7 +36,7 @@
       "name": "validate",
       "type": "agent",
       "owner": "domain-advisor",
-      "status": "pending",
+      "status": "green",
       "required_artifacts": [
         "advisory/go-no-go-memo.md",
         "advisory/risk-register.md",
