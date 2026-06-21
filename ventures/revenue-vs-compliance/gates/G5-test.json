@@ -1,0 +1,11 @@
+{
+  "gate": "G5",
+  "name": "test",
+  "venture": "revenue-vs-compliance",
+  "type": "agent",
+  "status": "pending",
+  "set_by": "template",
+  "set_at": null,
+  "evidence": {},
+  "notes": "Set green/red ONLY by `python .claude/hooks/gate.py test <slug>`, from the real test exit code. Deploy is blocked unless this is green AND fresh (source fingerprint matches the current build)."
+}
