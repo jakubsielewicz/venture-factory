@@ -1,0 +1,11 @@
+{
+  "gate": "G1",
+  "name": "validate",
+  "venture": "electrification-rebates",
+  "type": "agent",
+  "status": "pending",
+  "set_by": "template",
+  "set_at": null,
+  "evidence": {},
+  "notes": "Set green by `python .claude/hooks/gate.py check <slug> G1` once required artifacts exist (incl. advisory/verification.md). The model must not edit this file directly."
+}
