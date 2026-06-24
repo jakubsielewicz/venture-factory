@@ -77,6 +77,26 @@ def tag_tells(text, tells) -> list:
     return hits
 
 
+def make_record(source, url, date, text, engagement, tells) -> dict:
+    try:
+        eng = int(engagement)
+    except (TypeError, ValueError):
+        eng = 0
+    return {"source": source, "url": url or "", "date": date or "",
+            "text": text or "", "engagement": eng, "tells": tag_tells(text, tells)}
+
+
+def dedupe(records) -> list:
+    seen, out = set(), []
+    for r in records:
+        key = r.get("url") or r.get("text")
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(r)
+    return out
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="Harvest demand signals (keyless).")
     parser.add_argument("--json", action="store_true", help="emit machine-readable JSON")

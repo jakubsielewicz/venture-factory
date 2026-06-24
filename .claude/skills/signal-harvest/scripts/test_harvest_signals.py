@@ -66,6 +66,31 @@ def test_load_tells_returns_empty_on_bad_path():
     assert h.load_tells(h.pathlib.Path("does-not-exist.json")) == {}
 
 
+def test_make_record_shape_and_tells():
+    tells = {"unmet-need": ["i wish"]}
+    r = h.make_record("hackernews", "https://hn/1", "2026-01-02", "I wish X existed", "5", tells)
+    assert r == {"source": "hackernews", "url": "https://hn/1", "date": "2026-01-02",
+                 "text": "I wish X existed", "engagement": 5, "tells": ["unmet-need"]}
+
+
+def test_make_record_engagement_coerces_bad_values():
+    assert h.make_record("s", "u", "", "t", None, {})["engagement"] == 0
+    assert h.make_record("s", "u", "", "t", "notanumber", {})["engagement"] == 0
+
+
+def test_dedupe_drops_repeat_urls_keeps_order():
+    recs = [
+        {"url": "u1", "text": "a"}, {"url": "u2", "text": "b"}, {"url": "u1", "text": "c"},
+    ]
+    out = h.dedupe(recs)
+    assert [r["url"] for r in out] == ["u1", "u2"]
+
+
+def test_dedupe_falls_back_to_text_when_no_url():
+    recs = [{"url": "", "text": "same"}, {"url": "", "text": "same"}, {"url": "", "text": "diff"}]
+    assert [r["text"] for r in h.dedupe(recs)] == ["same", "diff"]
+
+
 # --- tiny harness (no pytest) ---------------------------------------------
 def _run():
     import tempfile, contextlib
