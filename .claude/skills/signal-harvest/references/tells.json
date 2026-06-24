@@ -1,0 +1,19 @@
+{
+  "unmet-need": [
+    "i wish", "wish there was", "why isn't there", "why is there no",
+    "there has to be a better way", "we spend hours", "spend hours every",
+    "built a spreadsheet", "wrote a script to", "i built a", "hacked together",
+    "by hand", "manually", "is there a tool", "does anyone know a tool"
+  ],
+  "solution-seeking": [
+    "what do you use for", "recommendations for", "looking for a tool",
+    "looking for a service", "alternative to", "is it worth paying",
+    "how much does", "pricing for", "what should i pay", "any tool that",
+    "best tool for", "best software for"
+  ],
+  "competitor-weakness": [
+    "love it but", "if only it could", "switched because", "switched away",
+    "deal-breaker", "dealbreaker", "the only problem with", "wish it could",
+    "doesn't support", "lacks"
+  ]
+}

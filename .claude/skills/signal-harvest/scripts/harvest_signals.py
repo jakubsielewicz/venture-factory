@@ -19,6 +19,7 @@ import urllib.parse
 import urllib.request
 
 UA = "venture-factory-signal-harvest/1.0"
+TELLS_PATH = pathlib.Path(__file__).resolve().parent.parent / "references" / "tells.json"
 
 
 def project_root() -> pathlib.Path:
@@ -58,6 +59,22 @@ def http_get_json(url, headers=None, timeout=8, _urlopen=None):
         if enc == "gzip":
             data = gzip.decompress(data)
         return json.loads(data.decode("utf-8"))
+
+
+def load_tells(path=TELLS_PATH) -> dict:
+    try:
+        return json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def tag_tells(text, tells) -> list:
+    low = (text or "").lower()
+    hits = []
+    for category, phrases in tells.items():
+        if any(p.lower() in low for p in phrases):
+            hits.append(category)
+    return hits
 
 
 def main(argv=None) -> int:

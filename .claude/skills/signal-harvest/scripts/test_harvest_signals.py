@@ -39,6 +39,33 @@ def test_http_get_json_decompresses_gzip():
     assert got == payload
 
 
+def test_load_tells_has_three_categories():
+    tells = h.load_tells()
+    assert set(tells) == {"unmet-need", "solution-seeking", "competitor-weakness"}
+    assert all(isinstance(v, list) and v for v in tells.values())
+
+
+def test_tag_tells_matches_unmet_need():
+    tells = {"unmet-need": ["i wish", "built a spreadsheet"], "solution-seeking": ["alternative to"]}
+    assert h.tag_tells("Honestly I wish there was a tool for this", tells) == ["unmet-need"]
+
+
+def test_tag_tells_matches_multiple_categories_in_lexicon_order():
+    tells = {"unmet-need": ["built a spreadsheet"], "solution-seeking": ["alternative to"]}
+    got = h.tag_tells("I built a spreadsheet as an alternative to Foo", tells)
+    assert got == ["unmet-need", "solution-seeking"]
+
+
+def test_tag_tells_empty_on_no_match_or_blank():
+    tells = {"unmet-need": ["i wish"]}
+    assert h.tag_tells("", tells) == []
+    assert h.tag_tells("just a neutral sentence", tells) == []
+
+
+def test_load_tells_returns_empty_on_bad_path():
+    assert h.load_tells(h.pathlib.Path("does-not-exist.json")) == {}
+
+
 # --- tiny harness (no pytest) ---------------------------------------------
 def _run():
     import tempfile, contextlib
