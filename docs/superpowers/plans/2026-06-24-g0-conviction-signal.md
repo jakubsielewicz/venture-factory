@@ -651,7 +651,7 @@ Wire the collectors into `main`, with per-collector error isolation, a ranked hu
 - Consumes: the four collectors (Task 4), `dedupe` (Task 3), `load_tells` (Task 2), `active_theme` (Task 1).
 - Produces:
   - `COLLECTORS: list[tuple[str, callable]]` — `[("hackernews", collect_hn), ("github", collect_github), ("google-autocomplete", collect_google), ("stackexchange", collect_stackexchange)]`.
-  - `run_collectors(theme, tells, collectors=COLLECTORS) -> tuple[list[dict], list[str]]` — runs each in try/except; a failing collector appends `"<name>: skipped (<ExceptionName>)"` to notes and contributes no records; returns `(dedupe(records), notes)`.
+  - `run_collectors(theme, tells, collectors=None) -> tuple[list[dict], list[str]]` — `collectors` defaults to `None` and resolves the module-level `COLLECTORS` at call time (so the test harness can monkeypatch `h.COLLECTORS`; a `collectors=COLLECTORS` default would bind the original list at def-time and defeat the monkeypatch). Runs each in try/except; a failing collector appends `"<name>: skipped (<ExceptionName>)"` to notes and contributes no records; returns `(dedupe(records), notes)`.
   - `format_digest(theme, records, notes) -> str` — header with theme + counts; records grouped by tell category, sorted by engagement desc, capped at 12 per category; a `notes` footer.
   - `main` (rewired) — resolves theme; runs collectors; prints `format_digest` or `json.dumps({"theme","records","notes"})` under `--json`; returns 0 even when zero records (prints guidance to use WebSearch).
 
@@ -702,15 +702,16 @@ Add this fixture wiring to the harness `_run()` — replace the existing `_run` 
 
 ```python
 def _run():
-    import tempfile, contextlib
+    import tempfile, contextlib, shutil
     failures = 0
     for name, fn in sorted(globals().items()):
         if not (name.startswith("test_") and callable(fn)):
             continue
         kwargs = {}
+        td = None
         argnames = fn.__code__.co_varnames[: fn.__code__.co_argcount]
         if "tmp_env" in argnames:
-            kwargs["tmp_env"] = tempfile.mkdtemp()
+            td = tempfile.mkdtemp(); kwargs["tmp_env"] = td
         buf = io.StringIO()
         if "capsys_buffer" in argnames:
             kwargs["capsys_buffer"] = buf
@@ -732,6 +733,8 @@ def _run():
         finally:
             if saved is not None:
                 h.COLLECTORS = saved
+            if td:
+                shutil.rmtree(td, ignore_errors=True)
     print(f"\n{'OK' if not failures else 'FAILED'} ({failures} failure(s))")
     return 1 if failures else 0
 ```
@@ -754,7 +757,9 @@ COLLECTORS = [
 ]
 
 
-def run_collectors(theme, tells, collectors=COLLECTORS):
+def run_collectors(theme, tells, collectors=None):
+    if collectors is None:  # resolve at call time so tests can monkeypatch module-level COLLECTORS
+        collectors = COLLECTORS
     records, notes = [], []
     for name, fn in collectors:
         try:
