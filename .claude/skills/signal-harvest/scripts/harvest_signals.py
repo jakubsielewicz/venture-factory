@@ -14,7 +14,6 @@ import json
 import os
 import pathlib
 import sys
-import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -24,7 +23,11 @@ TELLS_PATH = pathlib.Path(__file__).resolve().parent.parent / "references" / "te
 
 def project_root() -> pathlib.Path:
     r = os.environ.get("CLAUDE_PROJECT_DIR")
-    return pathlib.Path(r) if r and pathlib.Path(r).is_dir() else pathlib.Path.cwd()
+    if r:
+        p = pathlib.Path(r)
+        if p.is_dir():
+            return p
+    return pathlib.Path.cwd()
 
 
 def active_theme():
@@ -102,7 +105,7 @@ def parse_hn(data, tells) -> list:
     for hit in (data or {}).get("hits", []):
         text = hit.get("title") or hit.get("story_text") or hit.get("comment_text") or ""
         eng = (hit.get("points") or 0) + (hit.get("num_comments") or 0)
-        url = f"https://news.ycombinator.com/item?id={hit.get('objectID')}"
+        url = f"https://news.ycombinator.com/item?id={hit.get('objectID', '')}"
         out.append(make_record("hackernews", url, hit.get("created_at"), text, eng, tells))
     return out
 
