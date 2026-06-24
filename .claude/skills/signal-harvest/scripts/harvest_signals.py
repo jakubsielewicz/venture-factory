@@ -164,6 +164,51 @@ def collect_stackexchange(theme, tells, fetch=http_get_json):
     return parse_stackexchange(fetch(url), tells), ""
 
 
+COLLECTORS = [
+    ("hackernews", collect_hn),
+    ("github", collect_github),
+    ("google-autocomplete", collect_google),
+    ("stackexchange", collect_stackexchange),
+]
+
+
+def run_collectors(theme, tells, collectors=None):
+    if collectors is None:
+        collectors = COLLECTORS
+    records, notes = [], []
+    for name, fn in collectors:
+        try:
+            recs, note = fn(theme, tells)
+            records.extend(recs)
+            if note:
+                notes.append(f"{name}: {note}")
+        except Exception as e:  # noqa: BLE001 — fail-graceful per collector
+            notes.append(f"{name}: skipped ({type(e).__name__})")
+    return dedupe(records), notes
+
+
+def format_digest(theme, records, notes) -> str:
+    lines = [f"# Demand-signal harvest — theme: {theme}",
+             f"{len(records)} signal(s) across {len({r['source'] for r in records})} source(s).", ""]
+    cats = ["unmet-need", "solution-seeking", "competitor-weakness", "untagged"]
+    for cat in cats:
+        group = [r for r in records if (r.get("tells") or ["untagged"])[0:1] == [cat]
+                 or (cat == "untagged" and not r.get("tells"))
+                 or (cat != "untagged" and cat in (r.get("tells") or []))]
+        if not group:
+            continue
+        group = sorted(group, key=lambda r: r.get("engagement", 0), reverse=True)[:12]
+        lines.append(f"## {cat} ({len(group)})")
+        for r in group:
+            lines.append(f"- [{r['engagement']}] {r['source']} — {r['text'][:140]} "
+                         f"({r['date'] or 'n/d'}) {r['url']}")
+        lines.append("")
+    if notes:
+        lines.append("## collector notes")
+        lines += [f"- {n}" for n in notes]
+    return "\n".join(lines)
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="Harvest demand signals (keyless).")
     parser.add_argument("--json", action="store_true", help="emit machine-readable JSON")
@@ -174,8 +219,18 @@ def main(argv=None) -> int:
         print("DATA UNAVAILABLE: no active venture/theme found (set VF_ACTIVE_VENTURE).")
         print("Fall back to WebSearch for demand evidence and note the snapshot was unavailable.")
         return 0
-    # Collectors wired in later tasks.
-    print(f"DATA UNAVAILABLE: collectors not yet wired (theme: {theme}).")
+    tells = load_tells()
+    records, notes = run_collectors(theme, tells)
+    if args.json:
+        print(json.dumps({"theme": theme, "records": records, "notes": notes}, ensure_ascii=False))
+        return 0
+    if not records:
+        print(f"DATA UNAVAILABLE: collectors returned no signals (theme: {theme}).")
+        print("Fall back to WebSearch for demand evidence; see notes below.")
+        for n in notes:
+            print(f"- {n}")
+        return 0
+    print(format_digest(theme, records, notes))
     return 0
 
 

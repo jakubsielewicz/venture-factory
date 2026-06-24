@@ -152,20 +152,67 @@ def test_collector_returns_records_via_injected_fetch():
     assert note == ""
 
 
+def test_run_collectors_isolates_failures():
+    def good(theme, tells, fetch=None):
+        return [{"url": "u1", "text": "t", "engagement": 1, "tells": [], "source": "good"}], ""
+    def bad(theme, tells, fetch=None):
+        raise ValueError("boom")
+    recs, notes = h.run_collectors("x", {}, collectors=[("good", good), ("bad", bad)])
+    assert len(recs) == 1
+    assert any("bad: skipped (ValueError)" in n for n in notes)
+
+
+def test_format_digest_groups_and_ranks():
+    recs = [
+        {"source": "hackernews", "url": "u1", "date": "d", "text": "low", "engagement": 1, "tells": ["unmet-need"]},
+        {"source": "hackernews", "url": "u2", "date": "d", "text": "high", "engagement": 99, "tells": ["unmet-need"]},
+    ]
+    out = h.format_digest("my theme", recs, ["github: skipped (HTTPError)"])
+    assert "my theme" in out
+    # higher-engagement signal listed before the lower one
+    assert out.index("high") < out.index("low")
+    assert "github: skipped (HTTPError)" in out
+
+
+def test_main_json_mode_with_injected_collectors(monkeypatch_collectors, tmp_env, capsys_buffer):
+    # a venture with a manifest so active_theme() resolves
+    import json as _json, os as _os
+    vdir = _os.path.join(tmp_env, "ventures", "demo")
+    _os.makedirs(vdir)
+    with open(_os.path.join(vdir, "manifest.json"), "w", encoding="utf-8") as f:
+        _json.dump({"one_liner": "demo theme"}, f)
+    _os.environ["CLAUDE_PROJECT_DIR"] = tmp_env
+    _os.environ["VF_ACTIVE_VENTURE"] = "demo"
+    rc = h.main(["--json"])
+    payload = _json.loads(capsys_buffer.getvalue())
+    assert rc == 0
+    assert payload["theme"] == "demo theme"
+    assert payload["records"][0]["source"] == "fake"
+
+
 # --- tiny harness (no pytest) ---------------------------------------------
 def _run():
-    import tempfile, contextlib
+    import tempfile, contextlib, shutil
     failures = 0
     for name, fn in sorted(globals().items()):
         if not (name.startswith("test_") and callable(fn)):
             continue
         kwargs = {}
         td = None
-        if "tmp_env" in fn.__code__.co_varnames:
+        argnames = fn.__code__.co_varnames[: fn.__code__.co_argcount]
+        if "tmp_env" in argnames:
             td = tempfile.mkdtemp(); kwargs["tmp_env"] = td
         buf = io.StringIO()
-        if "capsys_buffer" in fn.__code__.co_varnames:
+        if "capsys_buffer" in argnames:
             kwargs["capsys_buffer"] = buf
+        saved = None
+        if "monkeypatch_collectors" in argnames:
+            def fake(theme, tells, fetch=None):
+                return [{"source": "fake", "url": "u", "date": "", "text": "I wish",
+                         "engagement": 3, "tells": ["unmet-need"]}], ""
+            saved = h.COLLECTORS
+            h.COLLECTORS = [("fake", fake)]
+            kwargs["monkeypatch_collectors"] = True
         try:
             with contextlib.redirect_stdout(buf):
                 fn(**kwargs)
@@ -173,6 +220,11 @@ def _run():
         except Exception as e:  # noqa: BLE001
             failures += 1
             print(f"FAIL {name}: {type(e).__name__}: {e}")
+        finally:
+            if saved is not None:
+                h.COLLECTORS = saved
+            if td:
+                shutil.rmtree(td, ignore_errors=True)
     print(f"\n{'OK' if not failures else 'FAILED'} ({failures} failure(s))")
     return 1 if failures else 0
 
