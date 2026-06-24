@@ -10,7 +10,7 @@ guard enforces the shell-side of it.
 ## Per-gate scoping (least privilege)
 | Stage | Gets |
 |---|---|
-| Scout / advisor / analyst (G0–G1) | research/data API keys only (e.g. `DEMAND_SIGNALS_API_KEY`); **no** prod credentials |
+| Scout / advisor / analyst (G0–G1) | research/data API keys only (e.g. optional `GITHUB_TOKEN`, `STACKEX_KEY` for higher harvest rate-limits); **no** prod credentials |
 | Builder (G4) | **no** prod credentials — builds against stubs; `.env.example` placeholders only |
 | qa-engineer (G5) | test/CI tokens only |
 | Operator / deploy (G6) | the deploy + runtime secrets, only after human G6 approval; sourced from the secret manager, never the repo |
@@ -18,7 +18,7 @@ guard enforces the shell-side of it.
 A read-only research agent must never receive deploy/payment credentials, and an injection script gets only the one data-API key it needs.
 
 ## Keys the factory references
-See `.env.example`. The dynamic-injection scripts (`demand-signals`, `unit-economics`) read their key from the environment and **fail gracefully** (print `DATA UNAVAILABLE`) when it's absent — so the crew runs without secrets, just with less live data.
+See `.env.example`. The dynamic-injection scripts (`signal-harvest`, `unit-economics`) read any keys from the environment and **fail gracefully** (print `DATA UNAVAILABLE`) when absent — so the crew runs without secrets, just with less live data. `signal-harvest` works fully keyless; `GITHUB_TOKEN`/`STACKEX_KEY` only raise rate limits.
 
 ## Enforcement (deterministic)
 - `.gitignore` excludes `.env`, `.env.*`, `*.pem`, `**/secrets/` — secrets can't be committed by accident.

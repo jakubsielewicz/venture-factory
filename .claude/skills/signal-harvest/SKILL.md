@@ -1,7 +1,7 @@
 ---
 name: signal-harvest
 description: Use at G0 to harvest demand signals across the source taxonomy — keyless APIs (HN, GitHub, Google autocomplete, StackExchange) plus guided WebSearch for review/marketplace/job-board tiers — into one tell-tagged signal inventory. Triggers: "harvest signals", "is there real demand", "what are people saying", any G0 scout pass.
-when_to_use: G0 demand gathering; building the evidence inventory that conviction-scoring scores. Supersedes the retired demand-signals skill (also covers trend trajectory & seasonality).
+when_to_use: G0 demand gathering; building the evidence inventory that conviction-scoring scores. Also covers trend trajectory & seasonality.
 allowed-tools: Read, Bash, WebSearch, WebFetch
 ---
 
