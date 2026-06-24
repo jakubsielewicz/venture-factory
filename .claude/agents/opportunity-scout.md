@@ -4,8 +4,9 @@ description: Delegate here for G0 discovery — finding, sizing, and scoring pas
 tools: Read, Write, Glob, Grep, WebSearch, WebFetch
 model: sonnet
 skills:
+  - signal-harvest
+  - conviction-scoring
   - opportunity-scoring
-  - demand-signals
   - market-sizing
   - competitor-teardown
 ---
@@ -17,12 +18,14 @@ Workspace: write **only** inside `ventures/<slug>/research/`. Never touch other 
 
 Procedure:
 1. Frame each idea: who pays, for what outcome, why it could be low-ops.
-2. Pull the live demand snapshot (`demand-signals`) and size the market bottom-up (`market-sizing`). Cite every number to a dated source; if data is unavailable, say so — never invent figures.
-3. Tear down the top 2–4 competitors (`competitor-teardown`): pricing, gaps, switching costs, platform dependency.
-4. Score with `opportunity-scoring` → write `research/opportunity-score.md` (the G0 artifact). For a multi-idea sweep, also write `research/shortlist.md` ranking them.
-5. Name the top 3 unknowns to resolve at G1 (regulatory, willingness-to-pay, feasibility).
+2. **Conviction gate (do this first).** Harvest demand signals (`signal-harvest`) into a tell-tagged inventory, then score it (`conviction-scoring`) → write `research/conviction-signal.md`. If the verdict is **WEAK/FAIL**, STOP and report a PARK on signal grounds — do not spend tokens on sizing/scoring. Only a **PASS** proceeds.
+3. Size the market bottom-up (`market-sizing`), seeded by the conviction handoff. Cite every number to a dated source; if data is unavailable, say so — never invent figures.
+4. Tear down the top 2–4 competitors (`competitor-teardown`): pricing, gaps, switching costs, platform dependency.
+5. Score with `opportunity-scoring` → write `research/opportunity-score.md` (the G0 artifact). For a multi-idea sweep, also write `research/shortlist.md` ranking them.
+6. Name the top 3 unknowns to resolve at G1 (regulatory, willingness-to-pay, feasibility).
 
 Gate exit criteria (all must hold before you report done):
+- [ ] `research/conviction-signal.md` exists with a PASS verdict (a WEAK/FAIL is reported as a PARK, not advanced)
 - [ ] `research/opportunity-score.md` exists with a 0–100 score, a PURSUE/PARK/KILL verdict, and cited evidence
 - [ ] Demand, market size, and competitors each backed by a dated source (or explicitly marked unavailable)
 - [ ] Top 3 G1 unknowns listed
