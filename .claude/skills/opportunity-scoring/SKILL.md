@@ -6,7 +6,7 @@ allowed-tools: Read, Write, WebSearch, WebFetch
 ---
 
 ## Procedure
-1. Gather inputs for the idea: the demand snapshot (from the `demand-signals` skill if preloaded), market size, and 2–4 competitors with pricing. Cite every figure to a dated source; mark anything you cannot verify as "unverified — resolve at G1".
+1. Gather inputs for the idea: the conviction handoff (from `conviction-scoring` — demand + WTP evidence; this must be a PASS to be here), market size, and 2–4 competitors with pricing. Cite every figure to a dated source; mark anything you cannot verify as "unverified — resolve at G1".
 2. Score each dimension 1–5, multiply by weight, sum, ×4 → a 0–100 score:
    - Demand & search momentum (0.25)
    - Monetisation clarity / willingness-to-pay (0.20)

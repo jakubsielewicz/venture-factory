@@ -23,7 +23,7 @@
     }
   },
   "gates": {
-    "G0": { "name": "scout", "type": "agent", "owner": "opportunity-scout", "status": "pending", "required_artifacts": ["research/opportunity-score.md"] },
+    "G0": { "name": "scout", "type": "agent", "owner": "opportunity-scout", "status": "pending", "required_artifacts": ["research/conviction-signal.md", "research/opportunity-score.md"] },
     "G1": { "name": "validate", "type": "agent", "owner": "domain-advisor", "status": "pending", "required_artifacts": ["advisory/go-no-go-memo.md", "advisory/risk-register.md", "financials/unit-economics.md", "advisory/verification.md"] },
     "G2": { "name": "decide", "type": "human", "owner": "human", "status": "pending" },
     "G3": { "name": "design", "type": "agent", "owner": "product-architect", "status": "pending", "required_artifacts": ["product/design/prd.md", "product/design/c4.md", "product/design/api-contract.md", "product/design/nfr.md"] },
