@@ -97,6 +97,73 @@ def dedupe(records) -> list:
     return out
 
 
+def parse_hn(data, tells) -> list:
+    out = []
+    for hit in (data or {}).get("hits", []):
+        text = hit.get("title") or hit.get("story_text") or hit.get("comment_text") or ""
+        eng = (hit.get("points") or 0) + (hit.get("num_comments") or 0)
+        url = f"https://news.ycombinator.com/item?id={hit.get('objectID')}"
+        out.append(make_record("hackernews", url, hit.get("created_at"), text, eng, tells))
+    return out
+
+
+def parse_github(data, tells) -> list:
+    out = []
+    for it in (data or {}).get("items", []):
+        eng = (it.get("reactions") or {}).get("total_count", 0)
+        out.append(make_record("github", it.get("html_url"), it.get("created_at"),
+                               it.get("title"), eng, tells))
+    return out
+
+
+def parse_google(data, tells) -> list:
+    suggestions = data[1] if isinstance(data, list) and len(data) > 1 else []
+    out = []
+    for s in suggestions:
+        url = "https://www.google.com/search?q=" + urllib.parse.quote_plus(s)
+        out.append(make_record("google-autocomplete", url, "", s, 0, tells))
+    return out
+
+
+def parse_stackexchange(data, tells) -> list:
+    out = []
+    for it in (data or {}).get("items", []):
+        eng = (it.get("score") or 0) + (it.get("answer_count") or 0)
+        out.append(make_record("stackexchange", it.get("link"), "", it.get("title"), eng, tells))
+    return out
+
+
+def collect_hn(theme, tells, fetch=http_get_json):
+    q = urllib.parse.quote_plus(theme)
+    url = f"https://hn.algolia.com/api/v1/search?query={q}&tags=(story,comment)&hitsPerPage=30"
+    return parse_hn(fetch(url), tells), ""
+
+
+def collect_github(theme, tells, fetch=http_get_json):
+    q = urllib.parse.quote_plus(theme + " in:title,body")
+    url = f"https://api.github.com/search/issues?q={q}&sort=reactions&order=desc&per_page=30"
+    hdrs = {"Accept": "application/vnd.github+json"}
+    tok = os.environ.get("GITHUB_TOKEN")
+    if tok:
+        hdrs["Authorization"] = f"Bearer {tok}"
+    return parse_github(fetch(url, headers=hdrs), tells), ""
+
+
+def collect_google(theme, tells, fetch=http_get_json):
+    q = urllib.parse.quote_plus("best " + theme)
+    url = f"https://suggestqueries.google.com/complete/search?client=firefox&q={q}"
+    return parse_google(fetch(url), tells), ""
+
+
+def collect_stackexchange(theme, tells, fetch=http_get_json):
+    q = urllib.parse.quote_plus(theme)
+    key = os.environ.get("STACKEX_KEY")
+    key_param = f"&key={urllib.parse.quote_plus(key)}" if key else ""
+    url = ("https://api.stackexchange.com/2.3/search/advanced"
+           f"?order=desc&sort=relevance&q={q}&site=stackoverflow&pagesize=30{key_param}")
+    return parse_stackexchange(fetch(url), tells), ""
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="Harvest demand signals (keyless).")
     parser.add_argument("--json", action="store_true", help="emit machine-readable JSON")

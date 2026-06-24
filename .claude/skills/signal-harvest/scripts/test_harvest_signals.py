@@ -91,6 +91,67 @@ def test_dedupe_falls_back_to_text_when_no_url():
     assert [r["text"] for r in h.dedupe(recs)] == ["same", "diff"]
 
 
+def test_parse_hn_maps_fields_and_engagement():
+    data = {"hits": [
+        {"objectID": "42", "title": "I wish there was X", "points": 10,
+         "num_comments": 5, "created_at": "2026-01-01T00:00:00Z", "url": None},
+    ]}
+    recs = h.parse_hn(data, {"unmet-need": ["i wish"]})
+    assert len(recs) == 1
+    r = recs[0]
+    assert r["url"] == "https://news.ycombinator.com/item?id=42"
+    assert r["engagement"] == 15
+    assert r["tells"] == ["unmet-need"]
+    assert r["source"] == "hackernews"
+
+
+def test_parse_github_uses_reactions_total():
+    data = {"items": [
+        {"html_url": "https://gh/i/1", "title": "alternative to Foo",
+         "created_at": "2026-02-02T00:00:00Z", "reactions": {"total_count": 7}},
+    ]}
+    recs = h.parse_github(data, {"solution-seeking": ["alternative to"]})
+    assert recs[0]["engagement"] == 7
+    assert recs[0]["tells"] == ["solution-seeking"]
+    assert recs[0]["source"] == "github"
+
+
+def test_parse_github_missing_reactions_is_zero():
+    data = {"items": [{"html_url": "u", "title": "t", "created_at": "d"}]}
+    assert h.parse_github(data, {})[0]["engagement"] == 0
+
+
+def test_parse_google_makes_suggestion_records():
+    data = ["best crm", ["best crm for plumbers", "best crm alternative"]]
+    recs = h.parse_google(data, {"solution-seeking": ["alternative"]})
+    assert [r["text"] for r in recs] == ["best crm for plumbers", "best crm alternative"]
+    assert recs[1]["tells"] == ["solution-seeking"]
+    assert recs[0]["source"] == "google-autocomplete"
+    assert "best%20crm%20for%20plumbers" in recs[0]["url"].replace("+", "%20")
+
+
+def test_parse_stackexchange_engagement_is_score_plus_answers():
+    data = {"items": [
+        {"link": "https://so/q/1", "title": "how do you all deal with X",
+         "score": 4, "answer_count": 3},
+    ]}
+    recs = h.parse_stackexchange(data, {})
+    assert recs[0]["engagement"] == 7
+    assert recs[0]["source"] == "stackexchange"
+
+
+def test_collector_returns_records_via_injected_fetch():
+    captured = {}
+    def fake_fetch(url, headers=None, timeout=8):
+        captured["url"] = url
+        return {"hits": [{"objectID": "1", "title": "I wish", "points": 1,
+                          "num_comments": 0, "created_at": "d"}]}
+    recs, note = h.collect_hn("payroll reconciliation", {"unmet-need": ["i wish"]}, fetch=fake_fetch)
+    assert len(recs) == 1
+    assert "payroll" in captured["url"].lower() or "payroll" in captured["url"].replace("+", " ").lower()
+    assert note == ""
+
+
 # --- tiny harness (no pytest) ---------------------------------------------
 def _run():
     import tempfile, contextlib
