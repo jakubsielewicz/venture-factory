@@ -8,14 +8,16 @@ import harvest_signals as h
 
 
 def test_active_theme_none_when_no_venture(tmp_env):
-    # No VF_ACTIVE_VENTURE and a project root with no ventures/ -> None
+    # No VF_ACTIVE_VENTURE/VF_HARVEST_SEED and a project root with no ventures/ -> None
     os.environ.pop("VF_ACTIVE_VENTURE", None)
+    os.environ.pop("VF_HARVEST_SEED", None)
     os.environ["CLAUDE_PROJECT_DIR"] = tmp_env
     assert h.active_theme() is None
 
 
 def test_main_exits_zero_with_no_theme(tmp_env, capsys_buffer):
     os.environ.pop("VF_ACTIVE_VENTURE", None)
+    os.environ.pop("VF_HARVEST_SEED", None)
     os.environ["CLAUDE_PROJECT_DIR"] = tmp_env
     rc = h.main([])
     out = capsys_buffer.getvalue()
@@ -188,6 +190,48 @@ def test_main_json_mode_with_injected_collectors(monkeypatch_collectors, tmp_env
     assert rc == 0
     assert payload["theme"] == "demo theme"
     assert payload["records"][0]["source"] == "fake"
+
+
+def test_active_theme_uses_harvest_seed_when_no_venture(tmp_env):
+    # Discovery mode: no venture, but a seed is set -> seed becomes the theme.
+    os.environ.pop("VF_ACTIVE_VENTURE", None)
+    os.environ["CLAUDE_PROJECT_DIR"] = tmp_env  # empty tmp: no ventures/ dir
+    os.environ["VF_HARVEST_SEED"] = "real-estate back-office"
+    try:
+        assert h.active_theme() == "real-estate back-office"
+    finally:
+        os.environ.pop("VF_HARVEST_SEED", None)
+
+
+def test_active_venture_beats_harvest_seed(tmp_env):
+    # An explicit active venture takes precedence over a discovery seed.
+    vdir = os.path.join(tmp_env, "ventures", "demo")
+    os.makedirs(vdir)
+    with open(os.path.join(vdir, "manifest.json"), "w", encoding="utf-8") as f:
+        json.dump({"one_liner": "demo theme"}, f)
+    os.environ["CLAUDE_PROJECT_DIR"] = tmp_env
+    os.environ["VF_ACTIVE_VENTURE"] = "demo"
+    os.environ["VF_HARVEST_SEED"] = "should not win"
+    try:
+        assert h.active_theme() == "demo theme"
+    finally:
+        os.environ.pop("VF_ACTIVE_VENTURE", None)
+        os.environ.pop("VF_HARVEST_SEED", None)
+
+
+def test_harvest_seed_beats_ambient_venture(tmp_env):
+    # A seed (explicit discovery) wins over an ambient, non-active venture.
+    vdir = os.path.join(tmp_env, "ventures", "ambient")
+    os.makedirs(vdir)
+    with open(os.path.join(vdir, "manifest.json"), "w", encoding="utf-8") as f:
+        json.dump({"one_liner": "ambient theme"}, f)
+    os.environ.pop("VF_ACTIVE_VENTURE", None)
+    os.environ["CLAUDE_PROJECT_DIR"] = tmp_env
+    os.environ["VF_HARVEST_SEED"] = "seed wins"
+    try:
+        assert h.active_theme() == "seed wins"
+    finally:
+        os.environ.pop("VF_HARVEST_SEED", None)
 
 
 # --- tiny harness (no pytest) ---------------------------------------------

@@ -30,23 +30,39 @@ def project_root() -> pathlib.Path:
     return pathlib.Path.cwd()
 
 
+def _theme_from_venture(v):
+    m = v / "manifest.json"
+    if not m.exists():
+        return None
+    try:
+        d = json.loads(m.read_text(encoding="utf-8"))
+        return d.get("one_liner") or d.get("title") or v.name
+    except Exception:
+        return None
+
+
 def active_theme():
+    """Resolve the harvest query. Precedence: an explicit active venture, then a
+    discovery seed (VF_HARVEST_SEED — lets the harvest run before any venture
+    exists so signals can *inform* the theme), then the first ambient venture."""
     vdir = project_root() / "ventures"
+    # 1. explicit active venture
     slug = os.environ.get("VF_ACTIVE_VENTURE")
-    candidates = []
     if slug:
-        candidates.append(vdir / slug)
+        t = _theme_from_venture(vdir / slug)
+        if t:
+            return t
+    # 2. explicit discovery seed (no venture required)
+    seed = os.environ.get("VF_HARVEST_SEED")
+    if seed and seed.strip():
+        return seed.strip()
+    # 3. ambient: first non-template venture with a manifest
     if vdir.is_dir():
-        candidates += [p for p in sorted(vdir.iterdir())
-                       if p.is_dir() and not p.name.startswith("_")]
-    for v in candidates:
-        m = v / "manifest.json"
-        if m.exists():
-            try:
-                d = json.loads(m.read_text(encoding="utf-8"))
-                return d.get("one_liner") or d.get("title") or v.name
-            except Exception:
-                continue
+        for v in sorted(vdir.iterdir()):
+            if v.is_dir() and not v.name.startswith("_"):
+                t = _theme_from_venture(v)
+                if t:
+                    return t
     return None
 
 
@@ -219,7 +235,7 @@ def main(argv=None) -> int:
 
     theme = active_theme()
     if not theme:
-        print("DATA UNAVAILABLE: no active venture/theme found (set VF_ACTIVE_VENTURE).")
+        print("DATA UNAVAILABLE: no theme found (set VF_ACTIVE_VENTURE, or VF_HARVEST_SEED for discovery).")
         print("Fall back to WebSearch for demand evidence and note the snapshot was unavailable.")
         return 0
     tells = load_tells()
