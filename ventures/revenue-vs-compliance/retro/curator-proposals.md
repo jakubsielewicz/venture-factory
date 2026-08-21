@@ -11,7 +11,7 @@ Status: AWAITING HUMAN REVIEW — do NOT apply directly to SKILL.md
 `.claude/skills/opportunity-scoring/SKILL.md`
 
 ### Motivation
-The revenue-vs-compliance controlled experiment (4-way level-field head-to-head, 2026-06-19) and corroborating evidence across au-sme-compliance, [venture-removed], payday-super, and aml-tranche2 establish that buyer economics is a structural predictor of the WTP sub-score — currently unrepresented in the SKILL.md scoring guidance.
+The revenue-vs-compliance controlled experiment (4-way level-field head-to-head, 2026-06-19) and corroborating evidence across au-sme-compliance, payday-super, and aml-tranche2 establish that buyer economics is a structural predictor of the WTP sub-score — currently unrepresented in the SKILL.md scoring guidance.
 
 ### Proposed diff (changelog format)
 
@@ -54,7 +54,7 @@ Buyer-economics anchors for the WTP sub-score
 
 | Claim | N | Bar status |
 |-------|---|------------|
-| AVOID compliance carries structural WTP ceiling (price pressure toward free govt templates, 1–2/5 default) | n≥4 (au-sme-compliance, [venture-removed], payday-super, aml-tranche2) | **CLEARED — n≥3 bar met. Ready for human approval.** |
+| AVOID compliance carries structural WTP ceiling (price pressure toward free govt templates, 1–2/5 default) | n≥3 (au-sme-compliance, payday-super, aml-tranche2) | **CLEARED — n≥3 bar met. Ready for human approval.** |
 | Full ranked ordering SAVE > MAKE > AVOID on WTP sub-score | n=1 (revenue-vs-compliance controlled experiment) | HOLD — corroborate across ≥2 more ventures before hardening anchors for SAVE and MAKE bands. |
 
 ### Recommended action for reviewer

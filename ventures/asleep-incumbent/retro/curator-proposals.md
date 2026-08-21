@@ -31,7 +31,7 @@ The current SKILL.md procedure does not explicitly address what to do when a com
 
 ## Proposal 2 — opportunity-scoring SKILL.md: Open-lane cap + crowding check
 
-**Evidence strength: n=3 (asleep-incumbent + [venture-removed] + aml-tranche2/payday-super) — READY TO APPLY (human approval)**
+**Evidence strength: n=2 (asleep-incumbent + aml-tranche2/payday-super) — READY TO APPLY (human approval)**
 
 The current scoring rubric does not cap the Defensibility/open-lane sub-score when the lane is unverified. Proposed procedure addition to the "Defensibility / moat potential" dimension:
 
@@ -56,13 +56,13 @@ The current scoring rubric does not cap the Defensibility/open-lane sub-score wh
 +scorecard table row: e.g. "(unverified — direct probe required before G1)".
 ```
 
-**Why it clears the bar:** asleep-incumbent (74 on open lane now shaky), [venture-removed] (70 on inferred open lane), aml-tranche2 + payday-super (PARKed because obvious mandate was crowded despite initial open-lane read). n≥3 across multiple venture types. This is the highest-impact procedure change available — it directly prevents the factory's most expensive failure mode (committing to G1 economics on a phantom open lane).
+**Why it clears the bar:** asleep-incumbent (74 on open lane now shaky), aml-tranche2 + payday-super (PARKed because obvious mandate was crowded despite initial open-lane read). n≥2 across multiple venture types. This is the highest-impact procedure change available — it directly prevents the factory's most expensive failure mode (committing to G1 economics on a phantom open lane).
 
 ---
 
 ## Proposal 3 — market-sizing SKILL.md: Denominator sourcing rule
 
-**Evidence strength: n=3 (asleep-incumbent + au-sme-compliance + [venture-removed]) — READY TO APPLY (human approval)**
+**Evidence strength: n=2 (asleep-incumbent + au-sme-compliance) — READY TO APPLY (human approval)**
 
 The current SKILL.md does not enforce sourcing of the percentage split used to derive the target sub-segment from a broader population. Proposed addition to the "Bottom-up sizing" step:
 
@@ -81,7 +81,7 @@ The current SKILL.md does not enforce sourcing of the percentage split used to d
 +    clearly labelled as a proxy with stated limitations.
 ```
 
-**Why it clears the bar:** asleep-incumbent (3,200–7,200 sub-segment from 40–60% split with no primary; verification flagged as G2 blocker), au-sme-compliance (60% award-coverage figure uncited), [venture-removed] (operator count extrapolated from AIHW bed data). Three distinct ventures, same structural gap. High confidence this pattern will repeat on any AU regulatory mandate venture.
+**Why it clears the bar:** asleep-incumbent (3,200–7,200 sub-segment from 40–60% split with no primary; verification flagged as G2 blocker), au-sme-compliance (60% award-coverage figure uncited). Two distinct ventures, same structural gap. High confidence this pattern will repeat on any AU regulatory mandate venture.
 
 ---
 
@@ -105,7 +105,7 @@ Proposed addition (for future promotion — do not apply yet):
 
 ## Proposal 5 — demand-signals SKILL.md: Demand-only is not opportunity
 
-**Evidence strength: n=3 (asleep-incumbent + [venture-removed] + aml-tranche2) — READY TO APPLY (human approval)**
+**Evidence strength: n=2 (asleep-incumbent + aml-tranche2) — READY TO APPLY (human approval)**
 
 Proposed addition to the "Signal scoring" or "Output" step:
 
@@ -121,7 +121,7 @@ Proposed addition to the "Signal scoring" or "Output" step:
 +lane grounds without re-running the full demand analysis.
 ```
 
-**Why it clears the bar:** asleep-incumbent (demand 4/5 accurate; lane later found narrowing), [venture-removed] (demand strong; correctly lower priority on drag + moat), aml-tranche2 (demand strong; PARKed on crowding + drag). n≥3. This is structural — the skill currently surfaces demand signals in isolation; pairing demand with a mandatory lane check prevents the most common G0 overconfidence pattern.
+**Why it clears the bar:** asleep-incumbent (demand 4/5 accurate; lane later found narrowing), aml-tranche2 (demand strong; PARKed on crowding + drag). n≥2. This is structural — the skill currently surfaces demand signals in isolation; pairing demand with a mandatory lane check prevents the most common G0 overconfidence pattern.
 
 ---
 
