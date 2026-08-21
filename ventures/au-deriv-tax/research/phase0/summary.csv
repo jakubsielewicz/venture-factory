@@ -1,0 +1,11 @@
+metric,result,threshold,verdict
+Weighted search cluster (AU/mo),"~1,020/mo (full T1 + full T2 + 50% T3; 2 ambiguous terms @25%). Confidence LOW-MED — no Keyword Planner; analyst-estimated.",">=1,500 pass | 800-1,500 conditional | <800 rescue",CONDITIONAL
+Widen-the-wedge cluster (AU/mo),"~600/mo (AU-holder-of-US-assets framing; dominated by w8ben australia ~320, us shares tax australia ~110)",">=3,000 to rescue via broader framing",FAIL (does not rescue)
+Pain threads logged,"15 threads across 3 communities (Aussie Stock Forums 8, Whirlpool 4, Sharesight 3). Quality mixed: ~6 true verbatim, rest WebSearch paraphrase (403 on direct fetch).",>=15 across >=3 communities,PASS (count) / WEAK (substance)
+Reddit probe,0 hits across all 9 terms x 6 subs — but WebFetch cannot reach reddit.com; NOT a confirmed absence.,"tool limitation flagged, not a clean negative",UNPROBED
+Options-specificity of pain,Pain concentrates on general IBKR/CGT/FX-reconciliation friction; 'wheel tax' & 'assigned tax' = 0 hits everywhere. Nothing dated 2025-2026.,options-assignment-specific pain sought,WEAK
+Grade-A/B reachable population,~302k verified (Aussie Stock Forums ~52k + HotCopper ~250k); ~1.65M incl. unverified Reddit ceiling. 0 communities graded A.,judgment input (record it),MODERATE (no grade-A channel)
+Oldest unfulfilled incumbent options request,"Sharesight ~5 yrs (opened 2021-07-06, staff-acknowledged, unshipped as of 2026-07-21). Navexa similar age, no staff response.",older = stronger gap evidence,STRONG
+Accountant fee anchor,"Munro's: $3,300/yr modest trader up to $6,600/yr 'intermediate' (derivatives/options/forex) up to $12,000 complex. Single published source doing the work.",supports >$500/yr claim?,STRONG (10x+ threshold; widen sample at G1)
+Differentiation vs US journals,"TraderSync/TradesViz/Wingman/TraderVue = options analytics yes, ATO tax no. TradesViz markets AU market support (nearest threat) but no evidenced CGT/tax report.",clear differentiation sentence,CLEAR
+OVERALL PHASE-0 CALL,CONDITIONAL -> HOLD (close 2 cheap gaps before paid Phase 1),"proceed only if search PASS, or CONDITIONAL + strong pain evidence",HOLD / CONDITIONAL

@@ -36,15 +36,29 @@ def _theme_from_venture(v):
         return None
     try:
         d = json.loads(m.read_text(encoding="utf-8"))
-        return d.get("one_liner") or d.get("title") or v.name
+        # search_theme is a clean keyword phrase; one_liner is prose (poor query).
+        return d.get("search_theme") or d.get("one_liner") or d.get("title") or v.name
     except Exception:
         return None
 
 
+def _resolve_slug():
+    """Reuse the hooks' canonical active-venture resolver so harvest targets the
+    SAME venture the guard/spend hooks do (env -> cwd-inside-ventures -> the sole
+    venture; never a first-of-many guess when the choice is ambiguous)."""
+    try:
+        sys.path.insert(0, str(project_root() / ".claude" / "hooks"))
+        import _vf  # noqa: WPS433
+        return _vf.active_venture()
+    except Exception:
+        return os.environ.get("VF_ACTIVE_VENTURE")
+
+
 def active_theme():
-    """Resolve the harvest query. Precedence: an explicit active venture, then a
-    discovery seed (VF_HARVEST_SEED — lets the harvest run before any venture
-    exists so signals can *inform* the theme), then the first ambient venture."""
+    """Resolve the harvest query. Precedence: explicit active venture, then a
+    discovery seed (VF_HARVEST_SEED — lets harvest run before any venture exists
+    so signals can *inform* the theme), then the canonical cwd/sole-venture
+    resolver. Returns None (never a wrong guess) when the venture is ambiguous."""
     vdir = project_root() / "ventures"
     # 1. explicit active venture
     slug = os.environ.get("VF_ACTIVE_VENTURE")
@@ -56,13 +70,12 @@ def active_theme():
     seed = os.environ.get("VF_HARVEST_SEED")
     if seed and seed.strip():
         return seed.strip()
-    # 3. ambient: first non-template venture with a manifest
-    if vdir.is_dir():
-        for v in sorted(vdir.iterdir()):
-            if v.is_dir() and not v.name.startswith("_"):
-                t = _theme_from_venture(v)
-                if t:
-                    return t
+    # 3. canonical resolver (cwd-inside-ventures, or the sole venture)
+    s = _resolve_slug()
+    if s:
+        t = _theme_from_venture(vdir / s)
+        if t:
+            return t
     return None
 
 
@@ -232,6 +245,10 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="Harvest demand signals (keyless).")
     parser.add_argument("--json", action="store_true", help="emit machine-readable JSON")
     args = parser.parse_args(argv)
+    try:  # source titles carry non-ASCII (em dashes etc.); don't die on a cp1252 console
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
     theme = active_theme()
     if not theme:

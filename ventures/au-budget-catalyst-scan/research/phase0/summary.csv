@@ -1,0 +1,7 @@
+metric,result,threshold,verdict
+Weighted search cluster (AU/mo),unknown (no volume source available this session — autocomplete suggestions only, no numeric volume),>=1500 PASS / 800-1500 CONDITIONAL / <800 rescue,CANNOT SCORE — logged as unknown, not fabricated
+Pain threads logged,4 (news/regulator/vendor sources; 0 community forum threads),>=15 across >=3 communities,FAIL vs strict threshold — community tier not reached (Reddit blocked; search proxy rate-limited)
+Grade-A/B reachable population,not computed (no community tab populated),judgment input,N/A
+Oldest unfulfilled incumbent request,not checked (ClinicComply changelog/roadmap not fetched this session),older = stronger gap,UNKNOWN
+Accountant/competitor fee anchor,"ClinicComply $99-349/mo AUD confirmed as an adjacent-tool price anchor (not an NDIS-specialist price)",supports a >$500/yr claim,SUPPORTS (adjacent, not exact-match)
+Overall desk-sizing verdict,CONDITIONAL (lite pass only — see go-no-go.md),PASS / CONDITIONAL / KILL,CONDITIONAL — route to direct-outreach kill test + registry-access confirmation before G1 spend

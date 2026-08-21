@@ -6,9 +6,28 @@
 A self-serve Safety Management System (SMS) SaaS for small Australian heavy-vehicle operators (1-20 trucks) to meet the HVNL 2026 SMS obligation: form-builder + evidence storage (incidents, pre-starts, fatigue, training) + audit-ready trail + alerts.
 
 ## Current state
-- **Gate:** G1 validate COMPLETE (green). At the **G2 HUMAN gate** - go/no-go + spend authorisation. AWAITING HUMAN.
-- **Status:** awaiting-human
-- **Last updated:** 2026-06-18
+- **Gate:** G1 validate COMPLETE (green). **PARKED at the G2 HUMAN gate** - see Decision Log below. Not approved to proceed to G3; not killed.
+- **Status:** blocked (manifest field; represents PARK - see Decision Log for rationale)
+- **Last updated:** 2026-07-21
+
+## Decision Log
+
+### 2026-07-21 - PARK at G2 (trigger: initial market engagement)
+**Verdict: PARK.** Do not proceed past G2. Venture is held, not deleted - all G0/G1 research and advisory work below is preserved as-is for a possible re-open.
+
+**Rationale (load-bearing):**
+- The venture's entire "why now" demand accelerant was the HVNL SMS obligation commencing **1 Aug 2026 with no grace period** (see Thesis and Decisive risk #3 below).
+- The build is estimated at ~8 weeks at 40 hrs/week. At the operator's real available capacity of 10-15 hrs/week, that build lands the product live in **~early 2027** - well after the 1 Aug 2026 deadline.
+- The peak-urgency window has effectively closed before build could plausibly start-to-ship in time.
+- The go/no-go memo itself (advisory/go-no-go-memo.md) already flagged this exposure: a post-August launch "removes the primary demand accelerant" and pushes break-even out 12-18 months.
+- **Initial market engagement** (the operator's first real-world contact with the opportunity, ahead of committing to the two binary GO-IF gates) **confirmed** this timing problem is real and decisive, not merely a theoretical risk - hence PARK rather than proceeding to the lane test / WTP test spend.
+
+**What would need to change to re-open this venture:**
+1. **A new why-now catalyst** - e.g. a subsequent HVNL enforcement milestone, audit wave, or amendment that recreates urgency independent of the 1 Aug 2026 date; or evidence that demand persists materially past the deadline (operators still buying post-August because enforcement, not the date itself, is the trigger).
+2. **Freed-up build capacity** - the operator (or a delegated builder) having enough sustained hours/week available to plausibly ship an MVP before whatever the next relevant deadline or enforcement milestone is.
+3. If either condition is met, re-run the two binary GO-IF gates from the G2 decision package below (ATCC/Kynection lane test; >=5/10-15 WTP interviews at A$79/mo) before re-asking for G2 approval - they were never executed because the timing problem made them moot.
+
+**Preserved, unchanged below:** thesis, G2 decision package, GO-IF gates, verification blockers, spend estimate, decisive risks, and the G0/G1 artifact list all remain as recorded at the time of the G1-to-G2 handoff. Nothing has been altered or deleted; this entry only appends the PARK verdict on top.
 
 ## Thesis
 HVNL amendments commence 1 Aug 2026; every accredited operator must hold an auditable, OPERATING SMS; CoR penalties up to ~$10k/breach. Incumbents are telematics-tied + enterprise/quote-only; NHVR free PDFs satisfy "documented" but not "operating". Open lane for sub-20-truck operators (found via the asleep-incumbent meta-filter).
@@ -38,4 +57,4 @@ HVNL amendments commence 1 Aug 2026; every accredited operator must hold an audi
 ## Artifacts by gate
 - G0 research/ - opportunity-score.md, shortlist.md (green)
 - G1 advisory/ - risk-register.md, go-no-go-memo.md, verification.md ; financials/ - unit-economics.md (green)
-- G2 - AWAITING HUMAN go/no-go + spend authorisation
+- G2 - PARKED 2026-07-21 (see Decision Log). gates/G2-decide.json left "pending" per convention - a PARK is not an "approved" human-gate write, and the model must not edit gate files.

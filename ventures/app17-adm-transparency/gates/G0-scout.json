@@ -1,0 +1,19 @@
+{
+  "gate": "G0",
+  "name": "scout",
+  "venture": "app17-adm-transparency",
+  "type": "agent",
+  "status": "green",
+  "set_by": "gate.py",
+  "set_at": "2026-07-20T12:42:13Z",
+  "evidence": {
+    "required_artifacts": [
+      "research/conviction-signal.md",
+      "research/opportunity-score.md",
+      "research/verification-app17.md",
+      "research/competitor-landscape.md"
+    ],
+    "missing": []
+  },
+  "notes": "Status derived from artifacts present on disk."
+}

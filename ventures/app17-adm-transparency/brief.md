@@ -1,0 +1,46 @@
+# Venture brief — app17-adm-transparency
+
+> Living source of truth. The venture-orchestrator is the sole writer.
+
+## One-liner
+Fixed-price ADM system inventory and APP 1.7–1.9 privacy-policy disclosure pack for AU mid-market health and aged-care orgs ahead of the 10 Dec 2026 commencement.
+
+## Current state
+- **Gate:** G0 scout COMPLETE (gate file green — `gates/G0-scout.json`). Verdict **PARK (48/100)** — well below the operator's self-assessed 69/90. Human go/park decision needed before any G1 spend.
+- **Status:** in-progress (recommendation: PARK, do not proceed to G1 without a human call)
+- **Last updated:** 2026-07-20
+
+## Thesis
+A genuinely new, dated, and correctly-characterised regulatory mechanism (APP 1.7–1.9, inserted by the Privacy and Other Legislation Amendment Act 2024, commencing 10 Dec 2026) requires APP entities — including all health-service providers regardless of the $3M small-business turnover exemption — to disclose their use of automated decision-making in their privacy policy. The operator's claimed edge (enterprise/solution-architecture skill to actually inventory client systems, not just draft boilerplate) is a plausible differentiator against template-only competitors. Wedge: a fixed-price "$4,500 ADM Inventory & Disclosure Pack" sold to AU health/aged-care privacy officers via the operator's existing Remediant network.
+
+## G0 verdict
+**PARK — 48/100** (crew rubric; operator self-scored 69/90 on their own rubric). The regulatory "why" is real and verified — this is not a fabricated catalyst. But the venture fails the conviction gate cleanly (12/100): every recurring signal found is professional/vendor anticipatory content (11+ law firms, 3 boutique consultancies, the regulator's own issues paper), not buyer-side pain, spend, or committed intent, in a segment carrying a real, quantified financial-stress counter-signal (61% of AU aged-care homes lossmaking, StewartBrown Dec 2025 — the same friction that PARKed a related aged/health-care venture via the same claimed channel, since removed from the active portfolio). Net: 2 hard gates clear PASS, 1 clear FAIL (evidence of acute pain), 3 WEAK/PARTIAL (channel, defensibility, why-now sector-specificity).
+
+## Decisions (dated)
+- 2026-07-20 — Venture created from `_template` at slug `app17-adm-transparency` to pressure-test the operator's pre-scouted APP 1.7 thesis. — Per task instruction: refine, don't accept.
+- 2026-07-20 — Single opportunity-scout pass delegated covering verification, licensed-advice-boundary risk, competitor/disconfirming-evidence hunt, hard-gate scoring, sizing, and Opportunity Score. — Cost discipline (one well-scoped pass, not five).
+- 2026-07-20 — G0 gate checked green via `gate.py check app17-adm-transparency G0` (all 4 required artifacts present). Manifest `current_gate` deliberately left at G0 / status in-progress (not advanced to G1) because the verdict is PARK — mirrors the portfolio's convention of not auto-advancing past a PARK without a human/orchestrator go-forward call. — Consistency with existing venture convention.
+- 2026-07-20 — SubagentStop auto-spend hook did not fire for this pass (env var set via a Bash call doesn't propagate to the hook's own process, and cwd at hook time was the repo root with 15 ventures present, so `active_venture()` couldn't resolve). Spend recorded manually via `spend.py add app17-adm-transparency --tokens 118562`. — Manifest accuracy; flagged as a process gap, not specific to this venture.
+
+## Load-bearing evidence (verified this pass — see `research/verification-app17.md` for full detail and sources)
+- **10 Dec 2026 commencement — CONFIRMED.** New sub-clauses APP 1.7, 1.8, 1.9 inserted into APP 1 by the Privacy and Other Legislation Amendment Act 2024 (Cth, assented Dec 2024). Confirmed via OAIC's own consultation page plus 11+ independent law-firm alerts. Disclosure required is per-category (kinds of personal info used, kinds of decisions made solely by ADM, kinds of decisions ADM substantially contributes to) — not a single boilerplate line.
+- **Health-provider capture regardless of the $3M small-business threshold — CONFIRMED**, and confirmed (not merely assumed) that the pre-existing carve-out extends to the new sub-clauses, because the exemption operates at APP-entity level, not per-obligation.
+- **OAIC ~60-org Jan 2026 compliance sweep — PARTIALLY CONFIRMED, material correction.** The sweep is real (Jan 2026, ~60 orgs) but tests APP 1.4 (general privacy-policy content) in six unrelated retail sectors (real estate, chemists, licensed venues, car rental, dealers, pawnbrokers) — **not ADM, not health/aged care.** A related claim circulating in vendor content ("OAIC named healthcare a priority sector") is UNVERIFIED and contradicted by OAIC's actual 2025-26 Corporate Plan priorities (rental/property, credit reporting, data brokerage, ad-tech, AI/biometrics, location tracking — no health/aged care). Do not repeat that line to prospects.
+- **"Not grandfathered" — CONFIRMED.** Applies to decisions made on/after 10 Dec 2026 regardless of system deployment date.
+- **"Substantially and directly related" reaching legacy macros — CONFIRMED as the actual statutory test**, per the Explanatory Memorandum's own worked example (a triage-scoring Excel formula is in scope; a simple DOB-to-age formula is not). The second limb ("significantly affects rights or interests") is a real narrowing filter — OAIC's own Issues Paper uses a fictional **aged-care insurer eligibility-decision** example, a genuinely on-point sector signal.
+- **Licensed-advice boundary — manageable-with-framing, not clear.** Market precedent exists (IIS Partners, Helios Salinger already draft policy-adjacent text commercially). Risk concentrates in the scope-determination judgment call (is System Y in/out), not the drafting mechanics — higher risk at high-volume, fixed-price, no-per-client-lawyer-review. Mitigation: route determinations through a named partner law firm before publication; carry PI insurance (not itemised in the operator's original $5K budget — closed gap: ~$3,700–4,900 all-in with PI insurance included).
+- **Market size (base case):** ~1,340 AU orgs in scope (707 residential aged-care + 633 private hospitals; deduplicated org count unconfirmed, treated as risk). At a plausible 1% 12–24mo adoption for an unbranded solo entrant: ~13 clients, ~$60K revenue — a viable side-income outcome, not a business that clears the operator's stated ambition.
+- **Competitors:** IIS Partners, Helios Salinger, FMA Consulting (all boutique AU privacy consultancies already publishing ADM-readiness content since Jul 2025), plus Big 4 and OneTrust-class GRC tooling at the enterprise end. No competitor pricing published for this specific deliverable — competitive lane is UNKNOWN, not confirmed open. Two of three named boutiques already give away template policy wording as lead-gen, creating a plausible "cheap bolt-on" substitute for budget-constrained buyers.
+- **Durability:** structurally looks like a ~6–12-month deadline sprint that decays sharply after 10 Dec 2026 unless a re-billing mechanism (annual re-attestation retainer, new-system re-disclosure triggers) is explicitly engineered into the offer from day one — not yet designed.
+
+## Open risks / G1 unknowns
+1. **Real buyer WTP, untested.** No buyer-side demand signal found in any tier (reviews, jobs, forums, marketplace, peak-body guidance) — everything found is professional/vendor anticipation. Cheapest kill test: direct outreach to 15–20 named privacy officers/compliance managers at AU health/aged-care orgs (via Remediant + IAPP ANZ + LinkedIn) for a paid deposit or signed LOI on the real $4,500 offer. **Pre-committed threshold: ≥3/20 (15%) within 3 weeks → proceed to G1; below → KILL/PARK confirmed, do not re-score.** Cost: near-$0, <3 weeks.
+2. **Competitor pricing, unprobed.** IIS Partners and Helios Salinger pricing is unknown; a buyer-style enquiry is needed before claiming any packaging/price gap exists (feeds both WTP anchor and defensibility scoring).
+3. **Licensed-advice-boundary sign-off.** Needs a qualified AU privacy/technology lawyer to confirm the "manageable-with-framing" verdict holds specifically for a high-volume, fixed-price, solo-operator delivery model — this determines whether PI insurance + a named-law-firm sign-off gate are launch-blocking, not optional.
+
+## Regulated-domain flag (for domain-advisor, if G1 proceeds)
+Privacy Act 1988 (Cth) as amended by the Privacy and Other Legislation Amendment Act 2024 — specifically APP 1.7–1.9 (ADM transparency) and the s6D small-business/health-provider carve-out. Unqualified-legal-practice risk for the drafted-policy-sections + scope-determination deliverable (see verification doc). Same buyer segment as a related, since-parked aged/health-care venture — do not duplicate outreach without accounting for that prior friction.
+
+## Artifacts by gate
+- G0 `research/` — `conviction-signal.md` (FAIL, 12/100), `verification-app17.md`, `competitor-landscape.md`, `opportunity-score.md` (PARK, 48/100) — all green per `gates/G0-scout.json`
+- G1 `advisory/`, `financials/` — not started; ON HOLD pending human go/park decision on the G0 PARK verdict

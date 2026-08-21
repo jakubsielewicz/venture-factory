@@ -1,0 +1,17 @@
+{
+  "gate": "G0",
+  "name": "scout",
+  "venture": "au-deriv-tax",
+  "type": "agent",
+  "status": "green",
+  "set_by": "gate.py",
+  "set_at": "2026-07-21T09:16:46Z",
+  "evidence": {
+    "required_artifacts": [
+      "research/conviction-signal.md",
+      "research/opportunity-score.md"
+    ],
+    "missing": []
+  },
+  "notes": "Status derived from artifacts present on disk."
+}

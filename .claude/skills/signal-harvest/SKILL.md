@@ -10,9 +10,18 @@ allowed-tools: Read, Bash, WebSearch, WebFetch
 python "$CLAUDE_PROJECT_DIR/.claude/skills/signal-harvest/scripts/harvest_signals.py" 2>/dev/null || echo "DATA UNAVAILABLE: harvest script not reachable; fall back to WebSearch."
 ```
 
+## Hot-thread radar + buyer searchability (recency-ranked)
+```!
+python "$CLAUDE_PROJECT_DIR/.claude/skills/signal-harvest/scripts/hot_threads.py" 2>/dev/null || echo "DATA UNAVAILABLE: radar not reachable; classify the buyer manually."
+```
+The radar ranks *recent* threads by engagement × recency and returns a **SEARCHABLE / SPARSE / SPARSE (DEGRADED)** buyer verdict. Use it to decide the demand-gate route:
+- **SEARCHABLE** (consumer/prosumer/SMB — recent engaged threads across ≥2 platforms) → the scout runs the **`desk-sizing`** skill (search cluster + community pain + competitor/accountant anchor → workbook + go/no-go). Seed its Evidence Log with the hottest threads listed here.
+- **SPARSE** (no recent engaged discussion, no collector blocked) → the buyer is private/B2B; **skip desk-sizing** — search/community silence is uninformative. Specify a direct-outreach kill test instead (named buyers, paid-LOI threshold).
+- **SPARSE (DEGRADED)** (a collector — usually Reddit — was unreachable) → do NOT treat as absence; check the skipped platform manually before routing (the au-deriv-tax lesson: Reddit-unprobed ≠ Reddit-empty). Narrow Reddit to specific subs with `VF_RADAR_SUBS="AusFinance,options,thetagang"`.
+
 ## Two modes
 - **Discovery (seed → themes):** you have a broad domain but no concrete idea yet — let the signals *inform* the theme. See below.
-- **Validation (theme → evidence):** a specific idea already has a venture; gather its demand evidence for `conviction-scoring`. The auto-harvest above covers this (it reads the active venture's theme).
+- **Validation (theme → evidence):** a specific idea already has a venture; gather its demand evidence for `conviction-scoring`. The auto-harvest above covers this (it reads the active venture's **`search_theme`** — a clean keyword phrase, set on the manifest; it falls back to the prose `one_liner`, which makes a poor query, so ensure `search_theme` is set). The query resolves to the venture the guard/spend hooks target (env `VF_ACTIVE_VENTURE` → cwd-inside-`ventures/` → the sole venture); with several ventures and none active it prints `DATA UNAVAILABLE` rather than harvesting the wrong one — set `VF_ACTIVE_VENTURE` or pass `VF_HARVEST_SEED`.
 
 ## Discovery mode (seed → candidate themes)
 When handed a broad domain (e.g. "AU SME compliance", "real-estate back-office") and no concrete idea yet:

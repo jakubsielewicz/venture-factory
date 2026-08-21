@@ -1,0 +1,11 @@
+term,tier,au_vol_mo,cpc_aud,competition,source,notes
+ndis compliance software,1,unknown,unknown,unknown,"Google Autocomplete (AU, hl=en&gl=au), 2026-07-21 — suggestion present, no volume figure available (no Keyword Planner access this session)",tool-intent; top autocomplete suggestion for the seed term
+ndis compliance management system,1,unknown,unknown,unknown,"Google Autocomplete, 2026-07-21",tool-intent variant
+ndis audit software,1,unknown,unknown,unknown,"Inferred adjacent term, not independently queried this session — UNVERIFIED",flag: not directly confirmed by autocomplete, exclude from weighted cluster until checked
+ndis worker screening check renewal,2,unknown,unknown,unknown,"Google Autocomplete, 2026-07-21",problem-intent; matches the Feb-2026 first-wave-expiry pain named in ClinicComply's blog
+ndis worker screening check cost,2,unknown,unknown,unknown,"Google Autocomplete, 2026-07-21",problem-intent; also has a strong "check cost" consumer-price-lookup reading — ambiguous intent, weight at 25% per rule
+ndis audit ready,2,unknown,unknown,unknown,"Google Autocomplete, 2026-07-21",problem-intent
+ndis audit preparation,2,unknown,unknown,unknown,"Google Autocomplete, 2026-07-21",problem-intent
+ndis audit requirements,3,unknown,unknown,unknown,"Google Autocomplete, 2026-07-21",long-tail; informational
+ndis audit cost,3,unknown,unknown,unknown,"Google Autocomplete, 2026-07-21",long-tail; pricing-research intent
+ndis provider registration 2026,1,unknown,unknown,unknown,"Google Autocomplete, 2026-07-21 — query returned NO suggestions (empty array)",tool/action-intent term with zero autocomplete population this session — a negative data point, logged not omitted

@@ -1,0 +1,34 @@
+{
+  "slug": "advantage-zone-sweep",
+  "title": "Sweep: cross-sector demand hunt across the operator's advantage zones (beyond AU aged/health-care compliance)",
+  "one_liner": "Cross-sector sweep result: no candidate clears PURSUE. Best of 16 candidates is a narrow AASB S2 (mandatory climate-disclosure) Scope 1&2 starter-pack for newly-in-scope $50-150M-revenue AU entities - PARK 60/100 (conviction PASS at the boundary), held down by severe crowding (11 named vendors) and a domain-expertise gap vs the operator's edge.",
+  "created": "2026-07-20",
+  "updated": "2026-07-20",
+  "current_gate": "G0",
+  "status": "in-progress",
+  "owner_writer": "venture-orchestrator",
+  "budget": {
+    "currency": "USD",
+    "token_budget_total": 5000000,
+    "tokens_spent": 0,
+    "api_spend_cap_usd": 25,
+    "api_spend_usd": 0,
+    "per_gate_token_budget": {
+      "G0": 1200000,
+      "G1": 1000000,
+      "G3": 1200000,
+      "G4": 1500000,
+      "G5": 600000,
+      "G6": 400000
+    }
+  },
+  "gates": {
+    "G0": { "name": "scout", "type": "agent", "owner": "opportunity-scout", "status": "pending", "required_artifacts": ["research/conviction-signal.md", "research/opportunity-score.md", "research/shortlist.md"] },
+    "G1": { "name": "validate", "type": "agent", "owner": "domain-advisor", "status": "pending", "required_artifacts": ["advisory/go-no-go-memo.md", "advisory/risk-register.md", "financials/unit-economics.md", "advisory/verification.md"] },
+    "G2": { "name": "decide", "type": "human", "owner": "human", "status": "pending" },
+    "G3": { "name": "design", "type": "agent", "owner": "product-architect", "status": "pending", "required_artifacts": ["product/design/prd.md", "product/design/c4.md", "product/design/api-contract.md", "product/design/nfr.md"] },
+    "G4": { "name": "build", "type": "agent", "owner": "builder", "status": "pending", "required_artifacts": ["product/src"] },
+    "G5": { "name": "test", "type": "agent", "owner": "qa-engineer", "status": "pending", "required_artifacts": ["product/tests"], "test_command": "pytest -q" },
+    "G6": { "name": "operate", "type": "human", "owner": "human", "status": "pending", "required_artifacts": ["runbook.md"] }
+  }
+}

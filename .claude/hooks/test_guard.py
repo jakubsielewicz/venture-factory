@@ -86,6 +86,7 @@ def main() -> int:
         check("G0 check before artifact is blocked (rc!=0)", rc != 0)
         (vdir / "research").mkdir(exist_ok=True)
         (vdir / "research" / "opportunity-score.md").write_text("x", encoding="utf-8")
+        (vdir / "research" / "conviction-signal.md").write_text("x", encoding="utf-8")
         rc, _ = gate("check", "demo", "G0")
         check("G0 check after artifact is green (rc==0)", rc == 0)
         (vdir / "check_pass.py").write_text("import sys; sys.exit(0)\n", encoding="utf-8")

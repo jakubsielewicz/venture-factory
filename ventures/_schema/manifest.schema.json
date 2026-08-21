@@ -10,6 +10,7 @@
     "slug": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
     "title": { "type": "string" },
     "one_liner": { "type": "string", "description": "Who it's for and what it does, in one sentence." },
+    "search_theme": { "type": "string", "maxLength": 120, "description": "Concise keyword phrase (NOT prose) used as the query for signal-harvest / hot-thread radar. Falls back to one_liner/title if unset — but the prose one_liner makes a poor search query, so set this on any venture that runs a G0 harvest." },
     "product_repo": { "type": "string", "description": "URL of the graduated product's own repo (set when the code moves out)." },
     "created": { "type": "string", "description": "YYYY-MM-DD" },
     "updated": { "type": "string", "description": "YYYY-MM-DD" },

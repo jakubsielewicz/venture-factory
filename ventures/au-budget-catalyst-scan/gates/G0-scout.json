@@ -1,0 +1,18 @@
+{
+  "gate": "G0",
+  "name": "scout",
+  "venture": "au-budget-catalyst-scan",
+  "type": "agent",
+  "status": "green",
+  "set_by": "gate.py",
+  "set_at": "2026-07-22T05:18:50Z",
+  "evidence": {
+    "required_artifacts": [
+      "research/conviction-signal.md",
+      "research/opportunity-score.md",
+      "research/shortlist.md"
+    ],
+    "missing": []
+  },
+  "notes": "Status derived from artifacts present on disk."
+}

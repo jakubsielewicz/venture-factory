@@ -1,18 +1,18 @@
 {
-  "slug": "asleep-incumbent",
-  "title": "Sweep: open-lane niches (strong demand, asleep incumbent)",
-  "one_liner": "A self-serve Safety Management System (SMS) SaaS for small AU heavy-vehicle operators (1-20 trucks) to meet the HVNL 2026 SMS obligation - the open-lane idea from the sweep.",
-  "created": "2026-06-18",
-  "updated": "2026-07-21",
-  "current_gate": "G2",
-  "status": "blocked",
+  "slug": "support-at-home-claims",
+  "title": "Support at Home Claims & Pricing Integrity Reports",
+  "one_liner": "Monthly claims-integrity and price-benchmarking report for Australian Support at Home (home care) providers, built on the Remediant entity-resolution pipeline, that surfaces rejected/underclaimed Services Australia claims and pricing exposure ahead of Commission audit.",
+  "created": "2026-07-20",
+  "updated": "2026-07-20",
+  "current_gate": "G0",
+  "status": "in-progress",
   "owner_writer": "venture-orchestrator",
   "budget": {
     "currency": "USD",
     "token_budget_total": 5000000,
-    "tokens_spent": 0,
+    "tokens_spent": 97955,
     "api_spend_cap_usd": 25,
-    "api_spend_usd": 0,
+    "api_spend_usd": 0.0,
     "per_gate_token_budget": {
       "G0": 800000,
       "G1": 1000000,
@@ -27,8 +27,9 @@
       "name": "scout",
       "type": "agent",
       "owner": "opportunity-scout",
-      "status": "green",
+      "status": "pending",
       "required_artifacts": [
+        "research/conviction-signal.md",
         "research/opportunity-score.md"
       ]
     },
@@ -36,7 +37,7 @@
       "name": "validate",
       "type": "agent",
       "owner": "domain-advisor",
-      "status": "green",
+      "status": "pending",
       "required_artifacts": [
         "advisory/go-no-go-memo.md",
         "advisory/risk-register.md",
@@ -48,7 +49,7 @@
       "name": "decide",
       "type": "human",
       "owner": "human",
-      "status": "blocked"
+      "status": "pending"
     },
     "G3": {
       "name": "design",

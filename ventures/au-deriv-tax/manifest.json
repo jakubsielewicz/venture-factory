@@ -1,18 +1,19 @@
 {
-  "slug": "asleep-incumbent",
-  "title": "Sweep: open-lane niches (strong demand, asleep incumbent)",
-  "one_liner": "A self-serve Safety Management System (SMS) SaaS for small AU heavy-vehicle operators (1-20 trucks) to meet the HVNL 2026 SMS obligation - the open-lane idea from the sweep.",
-  "created": "2026-06-18",
+  "slug": "au-deriv-tax",
+  "title": "ATO-grade tax and performance engine for Australian derivatives traders",
+  "one_liner": "Connects to IBKR/Tastytrade to continuously classify every option trade under ATO rules (assignments, exercises, expiries, multi-leg spreads, FX-at-trade-date) and roll it into an accountant-ready report plus ongoing performance analytics for Australian retail derivatives traders.",
+  "search_theme": "options trading tax australia ibkr cgt",
+  "created": "2026-07-21",
   "updated": "2026-07-21",
-  "current_gate": "G2",
+  "current_gate": "G0",
   "status": "blocked",
   "owner_writer": "venture-orchestrator",
   "budget": {
     "currency": "USD",
     "token_budget_total": 5000000,
-    "tokens_spent": 0,
+    "tokens_spent": 111201,
     "api_spend_cap_usd": 25,
-    "api_spend_usd": 0,
+    "api_spend_usd": 0.0,
     "per_gate_token_budget": {
       "G0": 800000,
       "G1": 1000000,
@@ -29,6 +30,7 @@
       "owner": "opportunity-scout",
       "status": "green",
       "required_artifacts": [
+        "research/conviction-signal.md",
         "research/opportunity-score.md"
       ]
     },
@@ -36,7 +38,7 @@
       "name": "validate",
       "type": "agent",
       "owner": "domain-advisor",
-      "status": "green",
+      "status": "pending",
       "required_artifacts": [
         "advisory/go-no-go-memo.md",
         "advisory/risk-register.md",
@@ -48,7 +50,7 @@
       "name": "decide",
       "type": "human",
       "owner": "human",
-      "status": "blocked"
+      "status": "pending"
     },
     "G3": {
       "name": "design",
