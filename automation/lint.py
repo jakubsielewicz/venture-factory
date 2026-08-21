@@ -16,6 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SKILLS = ROOT / ".claude" / "skills"
+DEVIN_SKILLS = ROOT / ".devin" / "skills"
 AGENTS = ROOT / ".claude" / "agents"
 
 issues: list = []
@@ -37,31 +38,39 @@ def fm_value(fm: str, key: str):
     return m.group(1).strip().strip("'\"") if m else None
 
 
-def lint_skills() -> None:
-    if not SKILLS.is_dir():
+def lint_skills_dir(skills_dir: Path, label: str) -> None:
+    """Same structural checks for any skills tree - .claude/skills (Claude Code) or
+    .devin/skills (Devin) - so the whole crew is held to one linter regardless of which
+    agent vendor reads a given skill."""
+    if not skills_dir.is_dir():
         return
-    for d in sorted(p for p in SKILLS.iterdir() if p.is_dir()):
+    for d in sorted(p for p in skills_dir.iterdir() if p.is_dir()):
         checked["skills"] += 1
         sk = d / "SKILL.md"
         if not sk.exists():
-            err(f"skill '{d.name}': missing SKILL.md")
+            err(f"{label} skill '{d.name}': missing SKILL.md")
             continue
         fm = frontmatter(sk.read_text(encoding="utf-8"))
         if fm is None:
-            err(f"skill '{d.name}': no YAML frontmatter")
+            err(f"{label} skill '{d.name}': no YAML frontmatter")
             continue
         name = fm_value(fm, "name")
         desc = fm_value(fm, "description")
         when = fm_value(fm, "when_to_use") or ""
         if not name:
-            err(f"skill '{d.name}': frontmatter missing name")
+            err(f"{label} skill '{d.name}': frontmatter missing name")
         if not desc:
-            err(f"skill '{d.name}': frontmatter missing description")
+            err(f"{label} skill '{d.name}': frontmatter missing description")
         if desc and len((desc + " " + when).strip()) > 1536:
-            err(f"skill '{d.name}': description + when_to_use exceeds 1536 chars "
+            err(f"{label} skill '{d.name}': description + when_to_use exceeds 1536 chars "
                 f"({len((desc + ' ' + when).strip())}) - it will be truncated in the listing")
         if not (d / "knowledge" / "ledger.md").exists():
-            err(f"skill '{d.name}': missing knowledge/ledger.md (curator has no home)")
+            err(f"{label} skill '{d.name}': missing knowledge/ledger.md (curator has no home)")
+
+
+def lint_skills() -> None:
+    lint_skills_dir(SKILLS, "claude")
+    lint_skills_dir(DEVIN_SKILLS, "devin")
 
 
 AGENT_RE = re.compile(r"Agent\(([^)]*)\)")
