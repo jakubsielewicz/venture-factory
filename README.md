@@ -4,9 +4,23 @@ A crew of specialised, self-improving AI agents that take a software product fro
 **opportunity to operating revenue** through a gated lifecycle — with deterministic
 guardrails so the autonomy is safe.
 
-Built on Claude Code / the Claude Agent SDK. The design doc is
-[passive-income-agent-team-implementation-plan.md](passive-income-agent-team-implementation-plan.md);
+Built on Claude Code / the Claude Agent SDK, with a Devin-facing maintenance layer (see
+[Devin in this repo](#devin-in-this-repo) below). The design doc is
+[docs/passive-income-agent-team-implementation-plan.md](docs/passive-income-agent-team-implementation-plan.md);
 the operating contract every agent follows is [CLAUDE.md](CLAUDE.md).
+
+## For reviewers (short version)
+
+If you're evaluating this repo and have limited time, in order:
+1. [`CLAUDE.md`](CLAUDE.md) — the operating contract every agent follows.
+2. `ventures/au-sme-compliance/gates/G5-test.json` — a real `npm test` run (exit code +
+   output + source fingerprint) from the one venture that graduated the full G0→G6
+   lifecycle; the gate can't be marked green by an agent asserting it, only by this file.
+3. [`.claude/hooks/guard.py`](.claude/hooks/guard.py) +
+   [`.claude/hooks/test_guard.py`](.claude/hooks/test_guard.py) — the deterministic
+   guardrail layer and its regression suite.
+4. [`docs/why-devin-here.md`](docs/why-devin-here.md) + `.devin/skills/` — the Devin-specific
+   work, described below.
 
 ## The gated lifecycle
 
@@ -63,13 +77,28 @@ heuristics to each skill's ledger and proposes `SKILL.md` edits for human review
 only after proving out across ≥3 ventures). `ventures/_eval/` holds golden cases so
 "the skills improve" is measurable, not just asserted.
 
+## Devin in this repo
+
+The crew above is Claude Code-native. Devin's role here is deliberately narrower and
+different in kind: it's the factory's **meta-engineer** — maintaining/hardening the
+factory's own tooling (agents, skills, hooks, automation, docs), not running a venture
+through the lifecycle. `.devin/skills/venture-factory-maintainer/SKILL.md` is Devin's
+operating contract for that role (mirrors `CLAUDE.md`, scoped to factory tooling); factory-
+maintenance cost is tracked separately via `spend.py meta-add`/`meta-show` into
+`automation/meta-spend.json`, rather than against any venture's budget. See
+[`docs/why-devin-here.md`](docs/why-devin-here.md) for the full reasoning and the concept
+mapping between this repo's gate/guard/ledger design and Devin's own concepts, plus what's
+deliberately out of scope for now.
+
 ## Layout
 
 ```
 .claude/            agents · skills · commands · hooks · settings.json
+.devin/             skills/venture-factory-maintainer — Devin's factory-maintenance contract
 automation/         nightly_scout · run_eval · portfolio · package_plugin · product-repo-template
 ventures/           _template · _schema · _eval · <live ventures> · INDEX.md (portfolio)
-CLAUDE.md           the operating contract  ·  SECRETS.md  ·  the implementation plan
+docs/               why-devin-here.md · the implementation plan · agent-skill-flow diagram
+CLAUDE.md           the operating contract  ·  SECRETS.md  ·  LICENSE
 ```
 
 Run `python automation/portfolio.py` for a cross-venture status view, and

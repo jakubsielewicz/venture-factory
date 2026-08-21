@@ -10,11 +10,19 @@ the counters move. This is the writer of those counters.
                                                  event on stdin, add
                                                  model_input_tokens+model_output_tokens
                                                  to the active venture (auto)
+  spend.py meta-add [--acu N] [--usd X] [--note "..."]   factory-maintenance spend
+                                                 (Devin ACUs or $, not tied to a venture)
+  spend.py meta-show                             print factory-maintenance spend
 
 Register the auto-hook in .claude/settings.json:
   "SubagentStop": [{ "matcher": "",
     "hooks": [{ "type": "command", "command": "python",
                 "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/spend.py", "from-hook"] }] }]
+
+meta-add/meta-show are for factory-maintenance work (e.g. a Devin session improving
+venture-factory itself per .devin/skills/venture-factory-maintainer) - this is cost
+outside any single venture's budget, so it gets its own ledger
+(automation/meta-spend.json) rather than being charged to a venture's manifest.json.
 """
 from __future__ import annotations
 
@@ -64,6 +72,42 @@ def cmd_show(a) -> int:
     return 0
 
 
+def _meta_path() -> Path:
+    return _vf.project_root() / "automation" / "meta-spend.json"
+
+
+def _meta_default() -> dict:
+    return {"acu_spent": 0, "usd_spent": 0.0, "cap_acu": None, "cap_usd": None, "log": []}
+
+
+def cmd_meta_add(a) -> int:
+    path = _meta_path()
+    d = _vf.load_json(path) or _meta_default()
+    d["acu_spent"] = round(float(d.get("acu_spent", 0) or 0) + float(a.acu or 0), 4)
+    d["usd_spent"] = round(float(d.get("usd_spent", 0) or 0) + float(a.usd or 0), 4)
+    if a.note:
+        d.setdefault("log", []).append({"note": a.note, "acu": a.acu, "usd": a.usd})
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(d, indent=2) + "\n", encoding="utf-8")
+    over = []
+    ca, cu = d.get("cap_acu"), d.get("cap_usd")
+    if ca is not None and d["acu_spent"] >= ca:
+        over.append(f"acu {d['acu_spent']}/{ca}")
+    if cu is not None and d["usd_spent"] >= cu:
+        over.append(f"${d['usd_spent']}/${cu}")
+    tail = f" OVER CAP ({', '.join(over)})" if over else ""
+    print(f"[spend] factory-maintenance{(' ' + a.note) if a.note else ''}: "
+          f"acu={d['acu_spent']} usd={d['usd_spent']}{tail}")
+    return 0
+
+
+def cmd_meta_show(a) -> int:
+    d = _vf.load_json(_meta_path()) or _meta_default()
+    keys = ("acu_spent", "cap_acu", "usd_spent", "cap_usd")
+    print(json.dumps({k: d.get(k) for k in keys}, indent=2))
+    return 0
+
+
 def cmd_from_hook(a) -> int:
     raw = sys.stdin.read()
     try:
@@ -89,6 +133,11 @@ def main() -> None:
     s.add_argument("slug"); s.set_defaults(func=cmd_show)
     h = sub.add_parser("from-hook", help="SubagentStop stdin mode (auto)")
     h.set_defaults(func=cmd_from_hook)
+    ma = sub.add_parser("meta-add", help="increment factory-maintenance spend (not tied to a venture)")
+    ma.add_argument("--acu", type=float, default=0.0); ma.add_argument("--usd", type=float, default=0.0)
+    ma.add_argument("--note", default=""); ma.set_defaults(func=cmd_meta_add)
+    ms = sub.add_parser("meta-show", help="print factory-maintenance spend")
+    ms.set_defaults(func=cmd_meta_show)
     args = ap.parse_args()
     sys.exit(args.func(args))
 
